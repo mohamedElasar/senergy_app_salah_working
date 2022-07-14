@@ -129,92 +129,105 @@ class _TripCheckListState extends State<TripCheckList> {
       int _endTime = _endUnixTime.toUtc().millisecondsSinceEpoch;
       await Provider.of<TripManager>(context, listen: false)
           .add_trip(
-            tripdata['phone_number'],
-            // tripdata['car_name'],
-            tripdata['passengers'],
-            tripdata['from'],
-            tripdata['to'],
-            _clock_start!,
-            _end_clock!,
-            time_start!,
-            _end_time!,
-            checklist['tire pressure']!,
-            checklist['wear']!,
-            checklist['wall damage']!,
-            checklist['dust']!,
-            checklist['wheel']!,
-            checklist['spare']!,
-            checklist['jack']!,
-            checklist['roadside']!,
-            checklist['flash']!,
-            checklist['engine']!,
-            checklist['brake']!,
-            checklist['gear']!,
-            checklist['clutch']!,
-            checklist['washer']!,
-            checklist['radiator']!,
-            checklist['battery']!,
-            checklist['terminals']!,
-            checklist['belts']!,
-            checklist['fans']!,
-            checklist['ac']!,
-            checklist['rubber']!,
-            checklist['leakage']!,
-            checklist['driver']!,
-            checklist['vehicle']!,
-            checklist['passes']!,
-            checklist['fuel']!,
-            checklist['scaba']!,
-            checklist['extinguishers']!,
-            checklist['first']!,
-            checklist['seat']!,
-            checklist['drinking']!,
-            checklist['head']!,
-            checklist['back']!,
-            checklist['side']!,
-            checklist['interior']!,
-            checklist['warning']!,
-            checklist['brakelights']!,
-            checklist['turn']!,
-            checklist['reverse']!,
-            checklist['windscreen']!,
-            checklist['air']!,
-            checklist['couplings']!,
-            checklist['winch']!,
-            checklist['horn']!,
-            checklist['secured']!,
-            checklist['clean']!,
-            checklist['left']!,
-            checklist['right']!,
-            notes_controller.text,
-            _startTime,
-            _endTime,
-            Provider.of<TripTextManager>(context, listen: false).trip_Car.id!,
-            Provider.of<TripTextManager>(context, listen: false)
-                .trip_Purpose
-                .id!,
-          )
-          .then((_) {
-            Navigator.pop(context);
-          })
-          .then(
-            (value) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Colors.green[300],
-                content: const Text(
-                  'Your Trip is submitted for approval',
-                  style: TextStyle(fontFamily: 'GE-medium'),
-                ),
-                duration: const Duration(seconds: 3),
+        tripdata['phone_number'],
+        // tripdata['car_name'],
+        tripdata['passengers'],
+        tripdata['from'],
+        tripdata['to'],
+        _clock_start!,
+        _end_clock!,
+        time_start!,
+        _end_time!,
+        checklist['tire pressure']!,
+        checklist['wear']!,
+        checklist['wall damage']!,
+        checklist['dust']!,
+        checklist['wheel']!,
+        checklist['spare']!,
+        checklist['jack']!,
+        checklist['roadside']!,
+        checklist['flash']!,
+        checklist['engine']!,
+        checklist['brake']!,
+        checklist['gear']!,
+        checklist['clutch']!,
+        checklist['washer']!,
+        checklist['radiator']!,
+        checklist['battery']!,
+        checklist['terminals']!,
+        checklist['belts']!,
+        checklist['fans']!,
+        checklist['ac']!,
+        checklist['rubber']!,
+        checklist['leakage']!,
+        checklist['driver']!,
+        checklist['vehicle']!,
+        checklist['passes']!,
+        checklist['fuel']!,
+        checklist['scaba']!,
+        checklist['extinguishers']!,
+        checklist['first']!,
+        checklist['seat']!,
+        checklist['drinking']!,
+        checklist['head']!,
+        checklist['back']!,
+        checklist['side']!,
+        checklist['interior']!,
+        checklist['warning']!,
+        checklist['brakelights']!,
+        checklist['turn']!,
+        checklist['reverse']!,
+        checklist['windscreen']!,
+        checklist['air']!,
+        checklist['couplings']!,
+        checklist['winch']!,
+        checklist['horn']!,
+        checklist['secured']!,
+        checklist['clean']!,
+        checklist['left']!,
+        checklist['right']!,
+        notes_controller.text,
+        _startTime,
+        _endTime,
+        Provider.of<TripTextManager>(context, listen: false).trip_Car.id!,
+        Provider.of<TripTextManager>(context, listen: false).trip_Purpose.id!,
+      )
+          .then((data) async {
+        // print(data);
+        // print('data');
+        if (data == false) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green[300],
+              content: const Text(
+                'Your Trip is submitted for approval',
+                style: TextStyle(fontFamily: 'GE-medium'),
               ),
+              duration: const Duration(seconds: 3),
             ),
-          )
-          .then((value) =>
-              Provider.of<TripTextManager>(context, listen: false).clearAll())
-          .then(
-            (value) => Provider.of<Auth_manager>(context, listen: false)
-                .sendNotification('New Trip', 'Need Your Approval'),
           );
+
+          Provider.of<TripTextManager>(context, listen: false).clearAll();
+
+          Provider.of<Auth_manager>(context, listen: false)
+              .sendNotification('New Trip', 'Need Your Approval');
+        } else {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green[300],
+              content: const Text(
+                'Your Trip is Approved',
+                style: TextStyle(fontFamily: 'GE-medium'),
+              ),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+
+          Provider.of<TripTextManager>(context, listen: false).clearAll();
+        }
+      });
     } on HttpException catch (error) {
       // _showErrorDialog(error.toString());
       ScaffoldMessenger.of(context).showSnackBar(

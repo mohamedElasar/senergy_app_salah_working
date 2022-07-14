@@ -77,7 +77,7 @@ class _HarForm2State extends State<HarForm2> {
   // ignore: prefer_final_fields
   Map<String, dynamic> _data = {'day_start': null, 'day_arrival': null};
 
-  void _modalBottomSheet_location(BuildContext context) {
+  void _modalBottomSheet_location(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -129,17 +129,20 @@ class _HarForm2State extends State<HarForm2> {
 
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.report_location![index].name
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -155,7 +158,7 @@ class _HarForm2State extends State<HarForm2> {
         });
   }
 
-  void _modalBottomSheet_segment(BuildContext context) {
+  void _modalBottomSheet_segment(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -207,18 +210,21 @@ class _HarForm2State extends State<HarForm2> {
 
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.report_department![index]
                                           .departmentName
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -234,7 +240,7 @@ class _HarForm2State extends State<HarForm2> {
         });
   }
 
-  void _modalBottomSheet_har_type(BuildContext context) {
+  void _modalBottomSheet_har_type(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -286,17 +292,20 @@ class _HarForm2State extends State<HarForm2> {
 
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.report_har_types![index].type
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -312,7 +321,7 @@ class _HarForm2State extends State<HarForm2> {
         });
   }
 
-  void _modalBottomSheet_har_type_(BuildContext context) {
+  void _modalBottomSheet_har_type_(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -363,17 +372,20 @@ class _HarForm2State extends State<HarForm2> {
                                           harmanager.report_type_s![index]);
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.report_type_s![index].type
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -467,7 +479,7 @@ class _HarForm2State extends State<HarForm2> {
   //       });
   // }
 
-  void _modalBottomSheet_har_likelihood(BuildContext context) {
+  void _modalBottomSheet_har_likelihood(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -518,18 +530,21 @@ class _HarForm2State extends State<HarForm2> {
                                           .report_likelihoods![index]);
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager
                                           .report_likelihoods![index].likelihood
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -545,7 +560,7 @@ class _HarForm2State extends State<HarForm2> {
         });
   }
 
-  void _modalBottomSheet_har_category(BuildContext context) {
+  void _modalBottomSheet_har_category(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -596,18 +611,21 @@ class _HarForm2State extends State<HarForm2> {
                                           harmanager.report_categorys![index]);
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.report_categorys![index]
                                           .hazardCategory
                                           .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -625,6 +643,7 @@ class _HarForm2State extends State<HarForm2> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Consumer<Auth_manager>(
         builder: (context, authManager, child) => Column(
@@ -655,7 +674,7 @@ class _HarForm2State extends State<HarForm2> {
                   Consumer<HarTextManager>(
                     builder: (context, hartextmanager, child) => Select_widget(
                         context, hartextmanager.har_location.name, () {
-                      _modalBottomSheet_location(context);
+                      _modalBottomSheet_location(context, size);
                     }),
                   ),
                 ],
@@ -685,7 +704,7 @@ class _HarForm2State extends State<HarForm2> {
                   builder: (context, hartextmanager, child) => Select_widget(
                       context, hartextmanager.har_department.departmentName,
                       () {
-                    _modalBottomSheet_segment(context);
+                    _modalBottomSheet_segment(context, size);
                   }),
                 )
               ],
@@ -713,7 +732,7 @@ class _HarForm2State extends State<HarForm2> {
                 Consumer<HarTextManager>(
                   builder: (context, hartextmanager, child) => Select_widget(
                       context, hartextmanager.har_report_type.type, () {
-                    _modalBottomSheet_har_type(context);
+                    _modalBottomSheet_har_type(context, size);
                   }),
                 )
               ],
@@ -769,7 +788,7 @@ class _HarForm2State extends State<HarForm2> {
                 Consumer<HarTextManager>(
                   builder: (context, hartextmanager, child) => Select_widget(
                       context, hartextmanager.har_report_type_.type, () {
-                    _modalBottomSheet_har_type_(context);
+                    _modalBottomSheet_har_type_(context, size);
                   }),
                 )
               ],
@@ -827,7 +846,7 @@ class _HarForm2State extends State<HarForm2> {
                     context,
                     hartextmanager.har_report_likelihood.likelihood,
                     () {
-                      _modalBottomSheet_har_likelihood(context);
+                      _modalBottomSheet_har_likelihood(context, size);
                     },
                   ),
                 )
@@ -857,7 +876,7 @@ class _HarForm2State extends State<HarForm2> {
                   builder: (context, hartextmanager, child) => Select_widget(
                       context,
                       hartextmanager.har_report_category.hazardCategory, () {
-                    _modalBottomSheet_har_category(context);
+                    _modalBottomSheet_har_category(context, size);
                   }),
                 )
               ],

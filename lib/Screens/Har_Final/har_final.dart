@@ -81,7 +81,7 @@ class _HarFinalState extends State<HarFinal> {
     });
   }
 
-  void _modalBottomSheet_har_category(BuildContext context) {
+  void _modalBottomSheet_har_category(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -132,16 +132,23 @@ class _HarFinalState extends State<HarFinal> {
                                           harmanager.users![index]);
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      harmanager.users![index].name.toString(),
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                child: Center(
+                                  child: SizedBox(
+                                    width: size.width * .9,
+                                    // color: Colors.black,
+                                    child: Center(
+                                      child: Text(
+                                        harmanager.users![index].name
+                                            .toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'AraHamah1964R-Bold'),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -621,7 +628,7 @@ class _HarFinalState extends State<HarFinal> {
                                                         .action_assignedTo
                                                         .name, () {
                                               _modalBottomSheet_har_category(
-                                                  context);
+                                                  context, size);
                                             }),
                                           )
                                         ],
@@ -688,26 +695,36 @@ class _HarFinalState extends State<HarFinal> {
                                                             null
                                                         ? const Icon(Icons
                                                             .add_circle_outline_outlined)
-                                                        : Text(
-                                                            tripTextManager
-                                                                .actionDueTimeUnix
-                                                                .toString()
-                                                                .substring(
-                                                                    0,
-                                                                    tripTextManager
-                                                                            .actionDueTimeUnix
-                                                                            .toString()
-                                                                            .length -
-                                                                        7)
-                                                                .replaceAll(
-                                                                    RegExp(' '),
-                                                                    ' , '),
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                        : SizedBox(
+                                                            width:
+                                                                size.width * .3,
+                                                            child: Text(
+                                                              tripTextManager
+                                                                  .actionDueTimeUnix
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0,
+                                                                      tripTextManager
+                                                                              .actionDueTimeUnix
+                                                                              .toString()
+                                                                              .length -
+                                                                          7)
+                                                                  .replaceAll(
+                                                                      RegExp(
+                                                                          ' '),
+                                                                      ' , '),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              softWrap: false,
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
                                                           )
                                                   ],
                                                 ),

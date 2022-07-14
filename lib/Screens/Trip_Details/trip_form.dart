@@ -75,7 +75,7 @@ class _TripFormState extends State<TripForm> {
 
   // ignore: prefer_final_fields
   Map<String, dynamic> _data = {'day_start': null, 'day_arrival': null};
-  void _modalBottomSheet_cars(BuildContext context) {
+  void _modalBottomSheet_cars(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -127,16 +127,17 @@ class _TripFormState extends State<TripForm> {
 
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: widget.size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.cars![index].name.toString(),
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -152,7 +153,7 @@ class _TripFormState extends State<TripForm> {
         });
   }
 
-  void _modalBottomSheet_purposes(BuildContext context) {
+  void _modalBottomSheet_purposes(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -205,17 +206,18 @@ class _TripFormState extends State<TripForm> {
 
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                child: SizedBox(
+                                  width: widget.size.width * .9,
+                                  child: Center(
+                                    child: Text(
                                       harmanager.Purposes![index].name
                                           .toString(),
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'AraHamah1964R-Bold'),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -233,6 +235,7 @@ class _TripFormState extends State<TripForm> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final driverName =
         Provider.of<Auth_manager>(context, listen: false).username;
     return SingleChildScrollView(
@@ -292,14 +295,14 @@ class _TripFormState extends State<TripForm> {
                             context,
                             'Select a Vehicle',
                             triptextManager.trip_Car.name, () {
-                          _modalBottomSheet_cars(context);
+                          _modalBottomSheet_cars(context, size);
                         })),
                 Consumer<TripTextManager>(
                     builder: (context, triptextManager, child) => Select_widget(
                             context,
                             'Select a Purpose',
                             triptextManager.trip_Purpose.name, () {
-                          _modalBottomSheet_purposes(context);
+                          _modalBottomSheet_purposes(context, size);
                         })),
               ],
             ),

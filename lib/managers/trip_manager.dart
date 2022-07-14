@@ -44,7 +44,7 @@ class TripManager extends ChangeNotifier {
 
   final int _defaultsizePerPage = 10;
 
-  Future<void> add_trip(
+  Future<bool> add_trip(
     String phone,
     // String carNumber,
     String passengers,
@@ -185,6 +185,8 @@ class TripManager extends ChangeNotifier {
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       dio.options.headers["Accept"] = 'application/json';
       var response = await dio.post(urld, data: jsonEncode(params));
+      // print(response.data['trip']['isApproved']);
+      return response.data['trip']['isApproved'];
     } on DioError catch (e) {
       throw HttpException(e.response!.data['message']);
     }

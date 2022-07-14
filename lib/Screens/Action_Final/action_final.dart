@@ -451,26 +451,36 @@ class _ActionFInalState extends State<ActionFInal> {
                                                             null
                                                         ? const Icon(Icons
                                                             .add_circle_outline_outlined)
-                                                        : Text(
-                                                            tripTextManager
-                                                                .actionDueTimeUnix
-                                                                .toString()
-                                                                .substring(
-                                                                    0,
-                                                                    tripTextManager
-                                                                            .actionDueTimeUnix
-                                                                            .toString()
-                                                                            .length -
-                                                                        7)
-                                                                .replaceAll(
-                                                                    RegExp(' '),
-                                                                    ' , '),
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                        : SizedBox(
+                                                            width:
+                                                                size.width * .3,
+                                                            child: Text(
+                                                              tripTextManager
+                                                                  .actionDueTimeUnix
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0,
+                                                                      tripTextManager
+                                                                              .actionDueTimeUnix
+                                                                              .toString()
+                                                                              .length -
+                                                                          7)
+                                                                  .replaceAll(
+                                                                      RegExp(
+                                                                          ' '),
+                                                                      ' , '),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              softWrap: false,
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
                                                           )
                                                   ],
                                                 ),
