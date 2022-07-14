@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314832835671",
+    "project_id": "senergy-e43a7",
+    "storage_bucket": "senergy-e43a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314832835671:android:e9882e485273b09ae77f12",
+        "android_client_info": {
+          "package_name": "com.example.senergy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314832835671-5smebolc2ip8b39uhm6g808kgnb25t16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSLAXazrj5Ru5hayJEdtMcLkNZHG-EV2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314832835671-5smebolc2ip8b39uhm6g808kgnb25t16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
