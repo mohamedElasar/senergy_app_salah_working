@@ -90,6 +90,13 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void didChangeDependencies() async {
+    await Provider.of<HarReport_Manager>(context, listen: false).get_advs();
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SafeArea(
@@ -122,55 +129,48 @@ class _HomeState extends State<Home> {
                             enlargeCenterPage: true,
                           ),
                           items: Provider.of<HarReport_Manager>(context,
-                                  listen: false)
-                              .advs!
-                              .map((item) => Container(
-                                    // padding: EdgeInsets.all(10),
-                                    margin: const EdgeInsets.all(5.0),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5.0)),
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Image.network(
-                                                'http://10.0.2.2:5000/' +
-                                                    item.image!,
-                                                fit: BoxFit.cover,
-                                                width: 1000.0),
-                                            // Positioned(
-                                            //   bottom: 10,
-                                            //   left: 0.0,
-                                            //   right: 0.0,
-                                            //   child: Container(
-                                            //     height: 10,
-                                            //     decoration: const BoxDecoration(
-                                            //       gradient: LinearGradient(
-                                            //         colors: [
-                                            //           Colors.black12,
-                                            //           Colors.black26
-                                            //           // senergyColorb,
-                                            //           // senergyColorg,
-                                            //         ],
-                                            //         begin: Alignment.bottomCenter,
-                                            //         end: Alignment.topCenter,
-                                            //       ),
-                                            //     ),
-                                            //     padding: const EdgeInsets.symmetric(
-                                            //         vertical: 10.0, horizontal: 20.0),
-                                            //     // child: Text(
-                                            //     //   item.title,
-                                            //     //   style: TextStyle(
-                                            //     //     color: Colors.white,
-                                            //     //     fontSize: 20.0,
-                                            //     //     fontWeight: FontWeight.bold,
-                                            //     //   ),
-                                            //     // ),
-                                            //   ),
-                                            // ),
-                                          ],
-                                        )),
-                                  ))
-                              .toList(),
+                                          listen: false)
+                                      .advs ==
+                                  null
+                              ? [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      image: DecorationImage(
+                                        fit: BoxFit.scaleDown,
+                                        image: AssetImage(
+                                          'assets/images/senergy.png',
+                                        ),
+                                      ),
+                                    ),
+                                    height: 200,
+                                  )
+                                ]
+                              : Provider.of<HarReport_Manager>(context,
+                                      listen: false)
+                                  .advs!
+                                  .map((item) => Container(
+                                        // padding: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(5.0),
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                            child: Stack(
+                                              children: <Widget>[
+                                                item.image == ''
+                                                    ? Image.asset(
+                                                        'assets/images/senergy.png',
+                                                      )
+                                                    : Image.network(
+                                                        'http://10.0.2.2:5000/' +
+                                                            item.image!,
+                                                        fit: BoxFit.cover,
+                                                        width: 1000.0),
+                                              ],
+                                            )),
+                                      ))
+                                  .toList(),
                         ),
                   const SizedBox(height: 10),
                   Expanded(
@@ -401,7 +401,7 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(5.0),
                             child: const Center(
                               child: Text(
-                                "Journy Request",
+                                "Trip Request",
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -444,6 +444,72 @@ class _HomeState extends State<Home> {
                       onTap: () {
                         Provider.of<AppStateManager>(context, listen: false)
                             .gotomytrips(true);
+                      },
+                    ),
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            border: Border.all(
+                              color: senergyColorg,
+                              width: 0.7,
+                            ),
+                          ),
+                          height: 40,
+                          child: Material(
+                            // elevation: 5.0,
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: const Center(
+                              child: Text(
+                                "New QHSE",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'AraHamah1964B-Bold'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Provider.of<AppStateManager>(context, listen: false)
+                            .gotohardetails(true);
+                      },
+                    ),
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            border: Border.all(
+                              color: senergyColorg,
+                              width: 0.7,
+                            ),
+                          ),
+                          height: 40,
+                          child: Material(
+                            // elevation: 5.0,
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: const Center(
+                              child: Text(
+                                "ALL QHSE",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'AraHamah1964B-Bold'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Provider.of<AppStateManager>(context, listen: false)
+                            .gotomyharReports(true);
                       },
                     ),
                     ListTile(

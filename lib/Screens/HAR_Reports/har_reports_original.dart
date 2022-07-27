@@ -272,7 +272,7 @@ class _HarReportsViewState extends State<HarReportsView> {
                                                   Text(
                                                     harManager.data![Index]
                                                                 .reportDate ==
-                                                            null
+                                                            0
                                                         ? ''
                                                         : DateTime.fromMillisecondsSinceEpoch(
                                                                 harManager
@@ -368,11 +368,18 @@ class _HarReportsViewState extends State<HarReportsView> {
                                         ),
                                       ),
                                       const Spacer(),
-                                      buildSeverity(
-                                          harManager.data![Index]
-                                              .reportLikelihood!.id!,
-                                          harManager
-                                              .data![Index].reportCategory!.id!)
+                                      harManager.data![Index]
+                                                      .reportLikelihood ==
+                                                  null ||
+                                              harManager.data![Index]
+                                                      .reportCategory ==
+                                                  null
+                                          ? Container()
+                                          : buildSeverity(
+                                              harManager.data![Index]
+                                                  .reportLikelihood!.id!,
+                                              harManager.data![Index]
+                                                  .reportCategory!.id!)
                                     ],
                                   ),
                                 ),

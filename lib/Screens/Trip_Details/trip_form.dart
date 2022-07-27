@@ -109,7 +109,8 @@ class _TripFormState extends State<TripForm> {
                     ),
                     child: Consumer<TripManager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.cars!.isEmpty) {
+                        if (harmanager.cars == null ||
+                            harmanager.cars!.isEmpty) {
                           return const Center(child: Text('No Locations'));
                         } else {
                           return ListView.builder(
@@ -187,7 +188,8 @@ class _TripFormState extends State<TripForm> {
                     ),
                     child: Consumer<TripManager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.Purposes!.isEmpty) {
+                        if (harmanager.Purposes == null ||
+                            harmanager.Purposes!.isEmpty) {
                           return const Center(child: Text('No Locations'));
                         } else {
                           return ListView.builder(
@@ -237,7 +239,7 @@ class _TripFormState extends State<TripForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final driverName =
-        Provider.of<Auth_manager>(context, listen: false).username;
+        Provider.of<Auth_manager>(context, listen: false).username ?? '';
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -261,7 +263,7 @@ class _TripFormState extends State<TripForm> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
               child: Text(
-                driverName!,
+                driverName,
                 style: const TextStyle(
                   fontSize: 25,
                   fontFamily: 'AraHamah1964R-Regular',

@@ -427,7 +427,7 @@ class _MyTripsState extends State<MyTrips> {
                                                                         .trips![
                                                                             Index]
                                                                         .startUnixTime ==
-                                                                    null
+                                                                    0
                                                                 ? ''
                                                                 : DateTime.fromMillisecondsSinceEpoch(tripManager
                                                                         .trips![
@@ -493,7 +493,7 @@ class _MyTripsState extends State<MyTrips> {
                                                                         .trips![
                                                                             Index]
                                                                         .endUnixTime ==
-                                                                    null
+                                                                    0
                                                                 ? ''
                                                                 : DateTime.fromMillisecondsSinceEpoch(tripManager
                                                                         .trips![

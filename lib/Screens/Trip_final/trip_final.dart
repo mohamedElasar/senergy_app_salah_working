@@ -309,7 +309,7 @@ class _TripFinalState extends State<TripFinal> {
                                                       Text(
                                                         tripManager.single_trip!
                                                                     .startUnixTime ==
-                                                                null
+                                                                0
                                                             ? ''
                                                             : DateTime.fromMillisecondsSinceEpoch(
                                                                     tripManager
@@ -367,7 +367,7 @@ class _TripFinalState extends State<TripFinal> {
                                                       Text(
                                                         tripManager.single_trip!
                                                                     .endUnixTime ==
-                                                                null
+                                                                0
                                                             ? ''
                                                             : DateTime.fromMillisecondsSinceEpoch(
                                                                     tripManager

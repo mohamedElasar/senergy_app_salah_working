@@ -110,7 +110,8 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_location!.isEmpty) {
+                        if (harmanager.report_location == null ||
+                            harmanager.report_location!.isEmpty) {
                           return const Center(child: Text('No Locations'));
                         } else {
                           return ListView.builder(
@@ -122,10 +123,12 @@ class _HarForm2State extends State<HarForm2> {
                                   onPrimary: Colors.white, // foreground
                                 ),
                                 onPressed: () {
-                                  Provider.of<HarTextManager>(context,
-                                          listen: false)
-                                      .set_har_location(
-                                          harmanager.report_location![index]);
+                                  harmanager.report_location == null
+                                      ? null
+                                      : Provider.of<HarTextManager>(context,
+                                              listen: false)
+                                          .set_har_location(harmanager
+                                              .report_location![index]);
 
                                   Navigator.pop(context);
                                 },
@@ -133,8 +136,11 @@ class _HarForm2State extends State<HarForm2> {
                                   width: size.width * .9,
                                   child: Center(
                                     child: Text(
-                                      harmanager.report_location![index].name
-                                          .toString(),
+                                      harmanager.report_location == null
+                                          ? ''
+                                          : harmanager
+                                              .report_location![index].name
+                                              .toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: false,
@@ -191,11 +197,12 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_location!.isEmpty) {
+                        if (harmanager.report_department == null ||
+                            harmanager.report_department!.isEmpty) {
                           return const Center(child: Text('No departments'));
                         } else {
                           return ListView.builder(
-                            itemCount: harmanager.report_location!.length,
+                            itemCount: harmanager.report_department!.length,
                             itemBuilder: (BuildContext ctxt, int index) {
                               return ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -273,7 +280,8 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_har_types!.isEmpty) {
+                        if (harmanager.report_har_types == null ||
+                            harmanager.report_har_types!.isEmpty) {
                           return const Center(child: Text('No types'));
                         } else {
                           return ListView.builder(
@@ -354,11 +362,12 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_har_types!.isEmpty) {
+                        if (harmanager.report_type_s == null ||
+                            harmanager.report_type_s!.isEmpty) {
                           return const Center(child: Text('No types'));
                         } else {
                           return ListView.builder(
-                            itemCount: harmanager.report_har_types!.length,
+                            itemCount: harmanager.report_type_s!.length,
                             itemBuilder: (BuildContext ctxt, int index) {
                               return ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -401,84 +410,6 @@ class _HarForm2State extends State<HarForm2> {
         });
   }
 
-  // void _modalBottomSheet_har_severity(BuildContext context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (builder) {
-  //         return Container(
-  //           height: 250.0,
-  //           color: Colors.transparent,
-  //           child: Column(
-  //             children: [
-  //               Consumer<HarTextManager>(
-  //                 builder: (context, hartextmanager, child) => Container(
-  //                   height: 40,
-  //                   width: double.infinity,
-  //                   decoration: const BoxDecoration(
-  //                     color: senergyColorg,
-  //                   ),
-  //                   child: const Center(
-  //                       child: Text(
-  //                     'Severity',
-  //                     style: TextStyle(
-  //                         fontSize: 20,
-  //                         fontFamily: 'GE-bold',
-  //                         color: Colors.white),
-  //                   )),
-  //                 ),
-  //               ),
-  //               Expanded(
-  //                 child: Container(
-  //                   decoration: const BoxDecoration(
-  //                     color: Colors.white,
-  //                   ),
-  //                   child: Consumer<HarReport_Manager>(
-  //                     builder: (_, harmanager, child) {
-  //                       if (harmanager.report_har_types!.isEmpty) {
-  //                         return const Center(child: Text('No Severity'));
-  //                       } else {
-  //                         return ListView.builder(
-  //                           itemCount: harmanager.report_har_types!.length,
-  //                           itemBuilder: (BuildContext ctxt, int index) {
-  //                             return ElevatedButton(
-  //                               style: ElevatedButton.styleFrom(
-  //                                 primary: Colors.white, // background
-  //                                 onPrimary: Colors.white, // foreground
-  //                               ),
-  //                               onPressed: () {
-  //                                 Provider.of<HarTextManager>(context,
-  //                                         listen: false)
-  //                                     .set_har_report_severity(
-  //                                         harmanager.report_severitys![index]);
-  //                                 Navigator.pop(context);
-  //                               },
-  //                               child: Row(
-  //                                 mainAxisAlignment: MainAxisAlignment.center,
-  //                                 children: [
-  //                                   Text(
-  //                                     harmanager
-  //                                         .report_severitys![index].severity
-  //                                         .toString(),
-  //                                     style: const TextStyle(
-  //                                         color: Colors.black,
-  //                                         fontFamily: 'AraHamah1964R-Bold'),
-  //                                   )
-  //                                 ],
-  //                               ),
-  //                             );
-  //                           },
-  //                         );
-  //                       }
-  //                     },
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         );
-  //       });
-  // }
-
   void _modalBottomSheet_har_likelihood(BuildContext context, Size size) {
     showModalBottomSheet(
         context: context,
@@ -512,7 +443,8 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_likelihoods!.isEmpty) {
+                        if (harmanager.report_likelihoods == null ||
+                            harmanager.report_likelihoods!.isEmpty) {
                           return const Center(child: Text('No Liklihoods'));
                         } else {
                           return ListView.builder(
@@ -593,7 +525,8 @@ class _HarForm2State extends State<HarForm2> {
                     ),
                     child: Consumer<HarReport_Manager>(
                       builder: (_, harmanager, child) {
-                        if (harmanager.report_categorys!.isEmpty) {
+                        if (harmanager.report_categorys == null ||
+                            harmanager.report_categorys!.isEmpty) {
                           return const Center(child: Text('No Severity'));
                         } else {
                           return ListView.builder(

@@ -418,7 +418,7 @@ class _HarFinalState extends State<HarFinal> {
                                                   Text(
                                                     harManager.single_har!
                                                                 .reportDate ==
-                                                            null
+                                                            0
                                                         ? ''
                                                         : DateTime.fromMillisecondsSinceEpoch(
                                                                 harManager
@@ -511,11 +511,18 @@ class _HarFinalState extends State<HarFinal> {
                                         ),
                                       ),
                                       const Spacer(),
-                                      buildSeverity(
-                                          harManager.single_har!
-                                              .reportLikelihood!.id!,
-                                          harManager
-                                              .single_har!.reportCategory!.id!)
+                                      harManager.single_har!
+                                                      .reportLikelihood ==
+                                                  null ||
+                                              harManager.single_har!
+                                                      .reportCategory ==
+                                                  null
+                                          ? Container()
+                                          : buildSeverity(
+                                              harManager.single_har!
+                                                  .reportLikelihood!.id!,
+                                              harManager.single_har!
+                                                  .reportCategory!.id!)
                                     ],
                                   ),
                                 ),

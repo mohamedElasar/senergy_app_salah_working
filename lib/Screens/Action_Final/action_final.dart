@@ -299,7 +299,12 @@ class _ActionFInalState extends State<ActionFInal> {
                                       ),
                                       const Spacer(),
                                       harManager.single_action!.reportIdd !=
-                                              null
+                                                  null ||
+                                              harManager
+                                                      .single_action!
+                                                      .reportIdd!
+                                                      .event_severity !=
+                                                  null
                                           ? buildSeverity(harManager
                                               .single_action!
                                               .reportIdd!

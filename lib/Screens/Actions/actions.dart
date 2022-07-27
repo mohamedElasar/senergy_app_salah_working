@@ -405,8 +405,14 @@ class _ActionsPageState extends State<ActionsPage> {
                                         ),
                                         const Spacer(),
                                         harManager.actions_for_user![Index]
-                                                    .reportIdd !=
-                                                null
+                                                        .reportIdd !=
+                                                    null ||
+                                                harManager
+                                                        .actions_for_user![
+                                                            Index]
+                                                        .reportIdd!
+                                                        .event_severity !=
+                                                    null
                                             ? buildSeverity(harManager
                                                 .actions_for_user![Index]
                                                 .reportIdd!
