@@ -316,70 +316,78 @@ class _HarChecklistState extends State<HarChecklist> {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: size.height * .6,
-                child: Consumer<HarReport_Manager>(
-                    builder: (context, harReport_manager, child) {
-                  return ListView.builder(
-                    itemCount: myMap.length,
-                    itemBuilder: (context, index) {
-                      return Column(children: [
-                        Title(
-                          text:
-                              uniquelist[index].classificationGroup!.toString(),
-                        ),
-                        ItemCheckList(
-                            // image: 'assets/images/tyre.png',
-                            column: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: myMap.entries
-                                    .elementAt(index)
-                                    .value
-                                    .map<Widget>(
-                                      (e) => Row(
-                                        children: [
-                                          Text(
-                                            e.classificationName!.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                                  'AraHamah1964R-Regular',
-                                              color: Colors.black,
-                                            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3),
+                  child: SizedBox(
+                    // height: size.height * .6,
+                    child: Consumer<HarReport_Manager>(
+                        builder: (context, harReport_manager, child) {
+                      return ListView.builder(
+                        itemCount: myMap.length,
+                        itemBuilder: (context, index) {
+                          return Column(children: [
+                            Title(
+                              text: uniquelist[index]
+                                  .classificationGroup!
+                                  .toString(),
+                            ),
+                            ItemCheckList(
+                                // image: 'assets/images/tyre.png',
+                                column: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: myMap.entries
+                                        .elementAt(index)
+                                        .value
+                                        .map<Widget>(
+                                          (e) => Row(
+                                            children: [
+                                              Text(
+                                                e.classificationName!
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily:
+                                                      'AraHamah1964R-Regular',
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              checklist[e.classificationName!
+                                                      .toString()]!
+                                                  ? InkWell(
+                                                      onTap: () => setState(() {
+                                                        checklist[e
+                                                            .classificationName!
+                                                            .toString()] = false;
+                                                      }),
+                                                      child: const Icon(
+                                                          Icons.check_box,
+                                                          color: Colors.blue),
+                                                    )
+                                                  : InkWell(
+                                                      onTap: () => setState(() {
+                                                        checklist[e
+                                                            .classificationName!
+                                                            .toString()] = true;
+                                                      }),
+                                                      child: const Icon(
+                                                          Icons
+                                                              .check_box_outline_blank_outlined,
+                                                          color: Colors.grey),
+                                                    )
+                                            ],
                                           ),
-                                          const Spacer(),
-                                          checklist[e.classificationName!
-                                                  .toString()]!
-                                              ? InkWell(
-                                                  onTap: () => setState(() {
-                                                    checklist[e
-                                                        .classificationName!
-                                                        .toString()] = false;
-                                                  }),
-                                                  child: const Icon(
-                                                      Icons.check_box,
-                                                      color: Colors.blue),
-                                                )
-                                              : InkWell(
-                                                  onTap: () => setState(() {
-                                                    checklist[e
-                                                        .classificationName!
-                                                        .toString()] = true;
-                                                  }),
-                                                  child: const Icon(
-                                                      Icons
-                                                          .check_box_outline_blank_outlined,
-                                                      color: Colors.grey),
-                                                )
-                                        ],
-                                      ),
-                                    )
-                                    .toList()))
-                      ]);
-                    },
-                  );
-                }),
+                                        )
+                                        .toList()))
+                          ]);
+                        },
+                      );
+                    }),
+                  ),
+                ),
               ),
               // const Spacer(),
               ElevatedButton(

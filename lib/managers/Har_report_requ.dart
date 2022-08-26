@@ -424,6 +424,9 @@ class HarReport_Manager extends ChangeNotifier {
           validateStatus: (status) => true,
         ),
       );
+      if (response.statusCode != 200) {
+        throw HttpException(response.toString());
+      }
     } on DioError catch (e) {
       print(e);
       throw HttpException(e.response!.data);
@@ -477,9 +480,12 @@ class HarReport_Manager extends ChangeNotifier {
           validateStatus: (status) => true,
         ),
       );
-      print(response);
+
+      if (response.statusCode != 200) {
+        throw HttpException(response.toString());
+      }
     } on DioError catch (e) {
-      print(e);
+      // print(e);
       throw HttpException(e.response!.data);
     }
 
