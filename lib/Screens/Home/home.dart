@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
                           options: CarouselOptions(
                             // viewportFraction: .9,
                             autoPlay: true,
-                            aspectRatio: 2.0,
+                            // aspectRatio: 2.0,
                             enlargeCenterPage: true,
                           ),
                           items: Provider.of<HarReport_Manager>(context,
@@ -233,21 +233,33 @@ class _HomeState extends State<Home> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              InkWell(
-                                child: Choice_container(
-                                  hinttext: 'NEW QHSE',
-                                  color: senergyColorg.withOpacity(0.5),
-                                  size: size,
-                                  fnc: () {
-                                    Provider.of<AppStateManager>(context,
-                                            listen: false)
-                                        .gotohardetails(true);
-                                  },
-                                  active: true,
-                                ),
+                              Choice_containerHAR(
+                                content: snapshot.data['HarTrack'].toString(),
+                                hinttext: 'NEW HAR    ',
+                                color: senergyColorg.withOpacity(.5),
+                                size: size,
+                                fnc: () {
+                                  Provider.of<AppStateManager>(context,
+                                          listen: false)
+                                      .gotohardetails(true);
+                                },
+                                active: true,
                               ),
+                              // InkWell(
+                              //   child: Choice_container(
+                              //     hinttext: 'NEW QHSE',
+                              //     color: senergyColorg.withOpacity(0.5),
+                              //     size: size,
+                              //     fnc: () {
+                              //       Provider.of<AppStateManager>(context,
+                              //               listen: false)
+                              //           .gotohardetails(true);
+                              //     },
+                              //     active: true,
+                              //   ),
+                              // ),
                               Choice_container(
-                                hinttext: 'QHSE REPORTS',
+                                hinttext: 'HAR REPORTS',
                                 color: senergyColorg.withOpacity(.5),
                                 size: size,
                                 fnc: () {
@@ -262,95 +274,75 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      child: Material(
+                        color: Colors.white,
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                      'Training Required: ',
+                                      style: TextStyle(
+                                          color: senergyColorb,
+                                          fontFamily: 'AraHamah1964R-Regular',
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      snapshot.data['usertrainingrequired'],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: senergyColorb,
+                                          fontFamily: 'AraHamah1964R-Regular',
+                                          fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                      'Training Completed: ',
+                                      style: TextStyle(
+                                          color: senergyColorb,
+                                          fontFamily: 'AraHamah1964R-Regular',
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      snapshot.data['percentagecourses'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: double.parse(snapshot
+                                                      .data['percentagecourses']
+                                                      .split(' ')[0]) <
+                                                  double.parse(snapshot.data[
+                                                          'usertrainingrequired']
+                                                      .split(' ')[0])
+                                              ? Colors.red
+                                              : Colors.green,
+                                          fontFamily: 'AraHamah1964R-Regular',
+                                          fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   )
-                  // Expanded(
-                  //   child: SingleChildScrollView(
-                  //     child: Container(
-                  //       color: Colors.red,
-                  //       child: Column(
-                  //         children: [
-                  //           const SizedBox(height: 10),
-                  //           Row(
-                  //             mainAxisAlignment: MainAxisAlignment.center,
-                  //             children: [
-                  //               InkWell(
-                  //                 child: Choice_container(
-                  //                   hinttext: 'TRIP REQUEST',
-                  //                   color: senergyColorg.withOpacity(0.5),
-                  //                   size: size,
-                  //                   fnc: () {
-                  //                     Provider.of<AppStateManager>(context,
-                  //                             listen: false)
-                  //                         .gototripdetails(true);
-                  //                   },
-                  //                   active: true,
-                  //                 ),
-                  //               ),
-                  //               !Provider.of<Auth_manager>(context,
-                  //                           listen: false)
-                  //                       .isAdmin!
-                  //                   ? Choice_container(
-                  //                       hinttext: 'TRIPS',
-                  //                       color: senergyColorg.withOpacity(.5),
-                  //                       size: size,
-                  //                       fnc: () {
-                  //                         Provider.of<AppStateManager>(context,
-                  //                                 listen: false)
-                  //                             .gotomytrips(true);
-                  //                       },
-                  //                       active: true,
-                  //                     )
-                  //                   : Choice_containerAdmin(
-                  //                       content: snapshot
-                  //                           .data['countTripsNeedApprove']
-                  //                           .toString(),
-                  //                       hinttext: 'TRIPS    ',
-                  //                       color: senergyColorg.withOpacity(.5),
-                  //                       size: size,
-                  //                       fnc: () {
-                  //                         Provider.of<AppStateManager>(context,
-                  //                                 listen: false)
-                  //                             .gotomytrips(true);
-                  //                       },
-                  //                       active: true,
-                  //                     ),
-                  //             ],
-                  //           ),
-                  //           const SizedBox(height: 10),
-                  //           Row(
-                  //             mainAxisAlignment: MainAxisAlignment.center,
-                  //             children: [
-                  //               InkWell(
-                  //                 child: Choice_container(
-                  //                   hinttext: 'NEW QHSE',
-                  //                   color: senergyColorg.withOpacity(0.5),
-                  //                   size: size,
-                  //                   fnc: () {
-                  //                     Provider.of<AppStateManager>(context,
-                  //                             listen: false)
-                  //                         .gotohardetails(true);
-                  //                   },
-                  //                   active: true,
-                  //                 ),
-                  //               ),
-                  //               Choice_container(
-                  //                 hinttext: 'QHSE REPORTS',
-                  //                 color: senergyColorg.withOpacity(.5),
-                  //                 size: size,
-                  //                 fnc: () {
-                  //                   Provider.of<AppStateManager>(context,
-                  //                           listen: false)
-                  //                       .gotomyharReports(true);
-                  //                 },
-                  //                 active: true,
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
                 ],
               );
             }
@@ -735,6 +727,74 @@ class Choice_containerAdmin extends StatelessWidget {
               shape: BadgeShape.circle,
 
               badgeColor: Colors.red,
+              badgeContent: Text(
+                content!,
+                style: TextStyle(color: Colors.white),
+              ),
+              child: Text(
+                hinttext,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                style: TextStyle(
+                    fontFamily: 'AraHamah1964B-Bold',
+                    fontSize: 25,
+                    color: active ? Colors.black : Colors.black26),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Choice_containerHAR extends StatelessWidget {
+  const Choice_containerHAR(
+      {Key? key,
+      required this.size,
+      required this.color,
+      // required this.value,
+      required this.fnc,
+      required this.hinttext,
+      required this.active,
+      this.loading = false,
+      this.content})
+      : super(key: key);
+  final String hinttext;
+  final Size size;
+  final Color color;
+
+  // final String value;
+  final Function() fnc;
+  final bool active;
+  final bool? loading;
+  final String? content;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(right: 6),
+      margin: const EdgeInsets.all(1),
+      alignment: Alignment.center,
+      height: size.height * .6 * .14,
+      // height: 40,
+      width: size.width * .45,
+      decoration: BoxDecoration(
+        color: active ? color : color.withOpacity(.5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: InkWell(
+        onTap: active ? () => fnc() : null,
+        child: SizedBox(
+          width: size.width * .35,
+          child: Center(
+            child: Badge(
+              elevation: 3,
+              // borderRadius: BorderRadius.zero,
+              position: BadgePosition.topEnd(),
+              shape: BadgeShape.circle,
+
+              badgeColor: int.parse(content!) >= 0 ? Colors.green : Colors.red,
               badgeContent: Text(
                 content!,
                 style: TextStyle(color: Colors.white),
