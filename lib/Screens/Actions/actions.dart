@@ -3,11 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/constants.dart';
 import 'package:senergy/managers/app_state_manager.dart';
-import 'package:senergy/managers/trip_manager.dart';
 
-import '../../httpexception.dart';
 import '../../managers/Har_report_requ.dart';
 import '../../managers/auth_manager.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // ignore: must_be_immutable
 class ActionsPage extends StatefulWidget {
@@ -153,8 +152,12 @@ class _ActionsPageState extends State<ActionsPage> {
       ),
       backgroundColor: Colors.grey[350],
       body: _isloading
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Center(
+              child: LoadingAnimationWidget.twistingDots(
+                leftDotColor: const Color(0xFF1A1A3F),
+                rightDotColor: const Color(0xFFEA3799),
+                size: 50,
+              ),
             )
           : Column(
               children: [
@@ -174,11 +177,39 @@ class _ActionsPageState extends State<ActionsPage> {
                       child: Consumer<HarReport_Manager>(
                           builder: (builder, harManager, child) {
                         if (harManager.actions_for_user!.isEmpty) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'NO ACTIONS REQUIRED',
+                                  style: TextStyle(
+                                      fontFamily: 'GE-medium',
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: senergyColorg),
+                                ),
+                                Center(
+                                  child: LoadingAnimationWidget.flickr(
+                                    leftDotColor: const Color(0xFF1A1A3F),
+                                    rightDotColor: const Color(0xFFEA3799),
+                                    size: 50,
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        if (harManager.actions_for_user!.isEmpty) {
                           if (harManager.loading) {
-                            return const Center(
+                            return Center(
                                 child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: CircularProgressIndicator(),
+                              padding: const EdgeInsets.all(8),
+                              child: LoadingAnimationWidget.twistingDots(
+                                leftDotColor: const Color(0xFF1A1A3F),
+                                rightDotColor: const Color(0xFFEA3799),
+                                size: 50,
+                              ),
                             ));
                           } else if (harManager.error) {
                             return Center(
@@ -222,10 +253,14 @@ class _ActionsPageState extends State<ActionsPage> {
                                     ),
                                   ));
                                 } else {
-                                  return const Center(
+                                  return Center(
                                       child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: CircularProgressIndicator(),
+                                    padding: const EdgeInsets.all(8),
+                                    child: LoadingAnimationWidget.twistingDots(
+                                      leftDotColor: const Color(0xFF1A1A3F),
+                                      rightDotColor: const Color(0xFFEA3799),
+                                      size: 50,
+                                    ),
                                   ));
                                 }
                               }
@@ -304,66 +339,133 @@ class _ActionsPageState extends State<ActionsPage> {
                                                     fontFamily:
                                                         'AraHamah1964R-Bold')),
                                             Column(children: [
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.all(6.0),
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(3.0),
-                                                decoration: BoxDecoration(
-                                                    color: harManager
-                                                                .actions_for_user![
-                                                                    Index]
-                                                                .targetDate! <
-                                                            DateTime.now()
-                                                                .toUtc()
-                                                                .millisecondsSinceEpoch
-                                                        ? const Color.fromARGB(
-                                                            255, 255, 209, 206)
-                                                        : const Color.fromARGB(
-                                                            255, 216, 255, 218),
-                                                    border: Border.all(
-                                                        color: senergyColorb
-                                                            .withOpacity(.3))),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      harManager
-                                                                  .actions_for_user![
-                                                                      Index]
-                                                                  .targetDate ==
-                                                              null
-                                                          ? ''
-                                                          : DateTime.fromMillisecondsSinceEpoch(
-                                                                  harManager
-                                                                      .actions_for_user![
-                                                                          Index]
-                                                                      .targetDate!)
-                                                              .toString()
-                                                              .substring(
-                                                                  0,
-                                                                  harManager
-                                                                          .actions_for_user![
-                                                                              Index]
-                                                                          .targetDate!
-                                                                          .toString()
-                                                                          .length +
-                                                                      3)
-                                                              .replaceAll(
-                                                                  RegExp(' '),
-                                                                  ' , '),
-                                                      style: TextStyle(
-                                                          color: text_colors[
-                                                              Index %
-                                                                  colors
-                                                                      .length],
-                                                          fontFamily:
-                                                              'AraHamah1964R-Bold'),
-                                                    ),
-                                                  ],
+                                                    const EdgeInsets.all(4.0),
+                                                child: Material(
+                                                  elevation: 3,
+                                                  child: Container(
+                                                    // margin:
+                                                    //     const EdgeInsets.all(
+                                                    //         6.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    decoration: BoxDecoration(
+                                                        color: harManager
+                                                                    .actions_for_user![
+                                                                        Index]
+                                                                    .targetDate! <
+                                                                DateTime.now()
+                                                                    .toUtc()
+                                                                    .millisecondsSinceEpoch
+                                                            ? const Color.fromARGB(
+                                                                255, 255, 209, 206)
+                                                            : const Color.fromARGB(
+                                                                255,
+                                                                216,
+                                                                255,
+                                                                218),
+                                                        border: Border.all(
+                                                            color: senergyColorb
+                                                                .withOpacity(.3))),
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            harManager
+                                                                        .actions_for_user![
+                                                                            Index]
+                                                                        .targetDate ==
+                                                                    null
+                                                                ? ''
+                                                                : DateTime.fromMillisecondsSinceEpoch(harManager
+                                                                        .actions_for_user![
+                                                                            Index]
+                                                                        .targetDate!)
+                                                                    .toString()
+                                                                    .substring(
+                                                                        0,
+                                                                        harManager.actions_for_user![Index].targetDate!.toString().length +
+                                                                            3)
+                                                                    .replaceAll(
+                                                                        RegExp(
+                                                                            ' '),
+                                                                        ' , '),
+                                                            style: TextStyle(
+                                                                color: text_colors[
+                                                                    Index %
+                                                                        colors
+                                                                            .length],
+                                                                fontFamily:
+                                                                    'AraHamah1964R-Bold'),
+                                                          ),
+                                                        ]),
+                                                  ),
                                                 ),
                                               ),
+                                              // Container(
+                                              //   margin:
+                                              //       const EdgeInsets.all(6.0),
+                                              //   padding:
+                                              //       const EdgeInsets.all(3.0),
+                                              //   decoration: BoxDecoration(
+                                              //       color: harManager
+                                              //                   .actions_for_user![
+                                              //                       Index]
+                                              //                   .targetDate! <
+                                              //               DateTime.now()
+                                              //                   .toUtc()
+                                              //                   .millisecondsSinceEpoch
+                                              //           ? const Color.fromARGB(
+                                              //               255, 255, 209, 206)
+                                              //           : const Color.fromARGB(
+                                              //               255, 216, 255, 218),
+                                              //       border: Border.all(
+                                              //           color: senergyColorb
+                                              //               .withOpacity(.3))),
+                                              //   child: Column(
+                                              //     mainAxisAlignment:
+                                              //         MainAxisAlignment.center,
+                                              //     children: [
+                                              //       Text(
+                                              //         harManager
+                                              //                     .actions_for_user![
+                                              //                         Index]
+                                              //                     .targetDate ==
+                                              //                 null
+                                              //             ? ''
+                                              //             : DateTime.fromMillisecondsSinceEpoch(
+                                              //                     harManager
+                                              //                         .actions_for_user![
+                                              //                             Index]
+                                              //                         .targetDate!)
+                                              //                 .toString()
+                                              //                 .substring(
+                                              //                     0,
+                                              //                     harManager
+                                              //                             .actions_for_user![
+                                              //                                 Index]
+                                              //                             .targetDate!
+                                              //                             .toString()
+                                              //                             .length +
+                                              //                         3)
+                                              //                 .replaceAll(
+                                              //                     RegExp(' '),
+                                              //                     ' , '),
+                                              //         style: TextStyle(
+                                              //             color: text_colors[
+                                              //                 Index %
+                                              //                     colors
+                                              //                         .length],
+                                              //             fontFamily:
+                                              //                 'AraHamah1964R-Bold'),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
                                             ]),
                                           ],
                                         ),

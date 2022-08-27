@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/managers/trip_manager.dart';
 import 'package:senergy/managers/trip_text_manager.dart';
@@ -105,7 +106,6 @@ class _TripCheckListState extends State<TripCheckList> {
 
   bool _isLoading = false;
   void _submit() async {
-    // print('asdasdasd');
     if (_StartUnixTime == null || _endUnixTime == null) {
       _showErrorDialog('you should enter start and arrival time');
       return;
@@ -193,8 +193,6 @@ class _TripCheckListState extends State<TripCheckList> {
         Provider.of<TripTextManager>(context, listen: false).trip_Purpose.id!,
       )
           .then((data) async {
-        // print(data);
-        // print('data');
         if (data == false) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -1897,7 +1895,12 @@ class _TripCheckListState extends State<TripCheckList> {
               ],
             ),
           )
-        : const Center(child: CircularProgressIndicator());
+        : Center(
+            child: LoadingAnimationWidget.twistingDots(
+            leftDotColor: const Color(0xFF1A1A3F),
+            rightDotColor: const Color(0xFFEA3799),
+            size: 50,
+          ));
   }
 
   Center build_edit_field({

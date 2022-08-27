@@ -79,12 +79,10 @@ class Auth_manager extends ChangeNotifier {
   Future<bool> tryAutoLogin() async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {
-      print('object');
       return false;
     }
     final extractedData = prefs.getString('userData');
     final data = (json.decode(extractedData!));
-    print(data);
 
     token = data['token'];
     _userId = data['userId'];
@@ -116,9 +114,9 @@ class Auth_manager extends ChangeNotifier {
           },
           headers: {'Accept': 'application/json'},
         );
-        // print(response.body);
       } catch (e) {
         print(e);
+        throw HttpException(e.toString());
       }
     });
     notifyListeners();
@@ -134,7 +132,7 @@ class Auth_manager extends ChangeNotifier {
         headers: {'Accept': 'application/json'},
       );
     } catch (e) {
-      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();

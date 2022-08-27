@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/managers/app_state_manager.dart';
@@ -13,6 +14,7 @@ import 'dart:io';
 import 'package:badges/badges.dart';
 
 import '../../managers/Har_report_requ.dart';
+import '../../models/adv_model.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -89,9 +91,13 @@ class _HomeState extends State<Home> {
     });
   }
 
+  bool _isinit = true;
   @override
   void didChangeDependencies() async {
-    await Provider.of<HarReport_Manager>(context, listen: false).get_advs();
+    if (_isinit) {
+      await Provider.of<HarReport_Manager>(context, listen: false).get_advs();
+    }
+    _isinit = false;
 
     super.didChangeDependencies();
   }
@@ -118,8 +124,12 @@ class _HomeState extends State<Home> {
                   ),
                   const SizedBox(height: 10),
                   _isloading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
+                      ? Center(
+                          child: LoadingAnimationWidget.twistingDots(
+                            leftDotColor: const Color(0xFF1A1A3F),
+                            rightDotColor: const Color(0xFFEA3799),
+                            size: 50,
+                          ),
                         )
                       : CarouselSlider(
                           options: CarouselOptions(
@@ -128,50 +138,79 @@ class _HomeState extends State<Home> {
                             // aspectRatio: 2.0,
                             enlargeCenterPage: true,
                           ),
-                          items: Provider.of<HarReport_Manager>(context,
-                                          listen: false)
-                                      .advs ==
-                                  null
-                              ? [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      image: DecorationImage(
-                                        fit: BoxFit.scaleDown,
-                                        image: AssetImage(
-                                          'assets/images/senergy.png',
-                                        ),
-                                      ),
-                                    ),
-                                    height: 200,
-                                  )
-                                ]
-                              : Provider.of<HarReport_Manager>(context,
-                                      listen: false)
-                                  .advs!
-                                  .map((item) => Container(
-                                        // padding: EdgeInsets.all(10),
-                                        margin: const EdgeInsets.all(5.0),
-                                        child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(5.0)),
-                                            child: Stack(
-                                              children: <Widget>[
-                                                item.image == ''
-                                                    ? Image.asset(
-                                                        'assets/images/senergy.png',
-                                                      )
-                                                    : Image.network(
-                                                        'http://10.0.2.2:5000/' +
-                                                            item.image!,
-                                                        fit: BoxFit.cover,
-                                                        width: 1000.0),
-                                              ],
-                                            )),
-                                      ))
-                                  .toList(),
+                          items: snapshot.data['advs']
+                              .map<Widget>(
+                                (item) => Container(
+                                  margin: const EdgeInsets.all(5.0),
+                                  child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5.0)),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Image.network(
+                                              'http://10.0.2.2:5000/' +
+                                                  item['image'],
+                                              fit: BoxFit.cover, errorBuilder:
+                                                  (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/senergy.png',
+                                            );
+                                          }, width: 1000.0),
+                                        ],
+                                      )),
+                                ),
+                              )
+                              .toList(),
                         ),
+                  // items: Provider.of<HarReport_Manager>(context,
+                  //                 listen: false)
+                  //             .advs ==
+                  //         null
+                  //     ? [
+                  //         Container(
+                  //           decoration: const BoxDecoration(
+                  //             color: Colors.white,
+                  //             image: DecorationImage(
+                  //               fit: BoxFit.scaleDown,
+                  //               image: AssetImage(
+                  //                 'assets/images/senergy.png',
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           height: 200,
+                  //         )
+                  //       ]
+                  //     : Provider.of<HarReport_Manager>(context,
+                  //             listen: false)
+                  //         .advs!
+                  //         .map((item) => Container(
+                  //               // padding: EdgeInsets.all(10),
+                  //               margin: const EdgeInsets.all(5.0),
+                  //               child: ClipRRect(
+                  //                   borderRadius:
+                  //                       const BorderRadius.all(
+                  //                           Radius.circular(5.0)),
+                  //                   child: Stack(
+                  //                     children: <Widget>[
+                  //                       item.image == ''
+                  //                           ? Image.asset(
+                  //                               'assets/images/senergy.png',
+                  //                             )
+                  //                           : Image.network(
+                  //                               'http://10.0.2.2:5000/' +
+                  //                                   item.image!,
+                  //                               fit: BoxFit.cover,
+                  //                               errorBuilder: (context,
+                  //                                   error, stackTrace) {
+                  //                               return Image.asset(
+                  //                                 'assets/images/senergy.png',
+                  //                               );
+                  //                             }, width: 1000.0),
+                  //                     ],
+                  //                   )),
+                  //             ))
+                  //         .toList(),
+                  // ),
                   const SizedBox(height: 10),
                   Expanded(
                     child: Container(

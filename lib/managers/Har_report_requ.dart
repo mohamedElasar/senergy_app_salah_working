@@ -1,16 +1,16 @@
 // ignore: file_names
 import 'dart:convert';
 import 'dart:io';
-import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:senergy/models/ActionModel.dart';
 import 'package:senergy/models/adv_model.dart';
 
 import '../models/Report_requ_model.dart';
 import '../models/har_models.dart';
-import '../models/trip_model.dart';
 import 'auth_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -104,8 +104,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
-      print(error);
+    } catch (e) {
+      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -127,9 +128,9 @@ class HarReport_Manager extends ChangeNotifier {
       var list = tripsList.map((data) => ReportHarType.fromJson(data)).toList();
       _report_har_types = list;
       // add exception
-      print(responseData);
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_har_types');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -154,8 +155,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_locations');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -180,8 +182,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_liklihoods');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -206,8 +209,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_severity');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -232,8 +236,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_department');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -250,7 +255,6 @@ class HarReport_Manager extends ChangeNotifier {
         },
       );
       final responseData = json.decode(response.body);
-      // print(responseData['locations']);
 
       List<dynamic> hazards_categorys = responseData['hazards_categorys'];
       List<dynamic> departments = responseData['departments'];
@@ -290,9 +294,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
-      print(error);
-      print('errorhar_report_requirements');
+    } catch (e) {
+      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -317,9 +321,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
-      print(error);
-      print('errorhar_report_categories');
+    } catch (e) {
+      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -343,8 +347,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_report_tyrpes_');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -369,8 +374,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
+    } catch (e) {
       print('errorhar_classification_groups');
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -517,15 +523,15 @@ class HarReport_Manager extends ChangeNotifier {
       _data = list;
       // add exception
 
-    } catch (error) {
-      print(error);
+    } catch (e) {
+      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
   }
 
   Future<void> getMoreData({bool mine = false}) async {
-    print(_data!.length.toString());
     // var url = Uri.http(
     //   '10.0.2.2:5000',
     //   '/api/har/reports',
@@ -562,8 +568,6 @@ class HarReport_Manager extends ChangeNotifier {
       );
 
       final responseData = json.decode(response.body);
-      print(url);
-      print(responseData);
 
       List<dynamic> tripsList = responseData['trips'];
       var fetchedHars =
@@ -575,7 +579,6 @@ class HarReport_Manager extends ChangeNotifier {
       _data!.addAll(fetchedHars);
     } catch (e) {
       print(e);
-      print('e');
       _loading = false;
       _error = true;
       notifyListeners();
@@ -600,7 +603,6 @@ class HarReport_Manager extends ChangeNotifier {
     _loading = true;
     _pageNumber = 0;
     _error = false;
-    // print(_pageNumber);
     notifyListeners();
   }
 
@@ -620,8 +622,9 @@ class HarReport_Manager extends ChangeNotifier {
 
       // add exception
 
-    } catch (error) {
-      print(error);
+    } catch (e) {
+      print(e);
+      throw HttpException(e.toString());
     }
 
     notifyListeners();
@@ -645,6 +648,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     } catch (error) {
       print(error);
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -671,6 +675,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     } catch (error) {
       print('errorhar_classifications_for_report');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -696,6 +701,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     } catch (error) {
       print('error advs');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -733,6 +739,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     } catch (error) {
       print(error);
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -761,7 +768,6 @@ class HarReport_Manager extends ChangeNotifier {
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       dio.options.headers["Accept"] = 'application/json';
       var response = await dio.post(urld, data: jsonEncode(params));
-      print(response);
 
       if (response.data['message'] != null) {
         throw HttpException(response.data['message']);
@@ -809,8 +815,6 @@ class HarReport_Manager extends ChangeNotifier {
     String? closingNote,
     int? closingDate,
   }) async {
-    print(closingNote);
-    print(closingDate);
     var url = Uri.http('10.0.2.2:5000', '/api/har/action/$id/action');
     try {
       var response = await http.put(

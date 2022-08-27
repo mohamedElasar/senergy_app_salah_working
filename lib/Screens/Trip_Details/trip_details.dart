@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/Screens/Trip_Details/trip_checklist.dart';
@@ -125,8 +126,12 @@ class _TripDetailsState extends State<TripDetails> {
           backgroundColor: Colors.white,
         ),
         body: _isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Center(
+                child: LoadingAnimationWidget.twistingDots(
+                  leftDotColor: const Color(0xFF1A1A3F),
+                  rightDotColor: const Color(0xFFEA3799),
+                  size: 50,
+                ),
               )
             : buildPageView(size),
         bottomNavigationBar: BottomNavigationBar(

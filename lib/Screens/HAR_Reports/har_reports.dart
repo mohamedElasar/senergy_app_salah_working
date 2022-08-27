@@ -4,10 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/constants.dart';
 import 'package:senergy/managers/app_state_manager.dart';
-import 'package:senergy/managers/trip_manager.dart';
 
-import '../../httpexception.dart';
-import '../../managers/Har_report_requ.dart';
 import 'har_reports_original.dart';
 
 // ignore: must_be_immutable
@@ -44,6 +41,7 @@ class _MyTripsState extends State<HarReports> {
   Widget buildPageView(size) {
     return PageView(
       controller: pageController,
+      physics: const NeverScrollableScrollPhysics(),
       onPageChanged: (index) {
         pageChanged(index);
       },
@@ -127,7 +125,7 @@ class _MyTripsState extends State<HarReports> {
                 activeColor: senergyColorg),
             BottomNavyBarItem(
                 title: Text('All REPORTS'),
-                icon: Icon(Icons.apps),
+                icon: Icon(Icons.format_list_bulleted),
                 activeColor: senergyColorb),
           ],
         ),

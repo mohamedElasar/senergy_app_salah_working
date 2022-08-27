@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:senergy/Home_test.dart';
 import 'package:senergy/Screens/splashScreen/splash_screen.dart';
 import 'package:senergy/managers/Har_report_requ.dart';
 import './managers/auth_manager.dart';
@@ -14,11 +13,10 @@ import 'managers/app_state_manager.dart';
 import 'managers/har_text_manager.dart';
 import 'managers/trip_text_manager.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
-  print('background message ${message.notification!.body}');
+  // print('background message ${message.notification!.body}');
 }
 
 void main() async {
@@ -28,12 +26,12 @@ void main() async {
   );
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
-    print('Message clicked!');
+    // print('Message clicked!');
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       // Provider.of<AppStateManager>(context,)
-      print("message recieved");
-      print(event.notification!.body);
-      print(event.data.values);
+      // print("message recieved");
+      // print(event.notification!.body);
+      // print(event.data.values);
     });
   });
   WidgetsFlutterBinding.ensureInitialized();

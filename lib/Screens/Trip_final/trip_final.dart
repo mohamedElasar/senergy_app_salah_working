@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/Screens/Trip_final/final_checklist.dart';
@@ -74,7 +75,6 @@ class _TripFinalState extends State<TripFinal> {
 
   bool _isLoading = false;
   void _danger() async {
-    // print('asdasdasd');
     setState(() {
       _isLoading = true;
     });
@@ -119,7 +119,6 @@ class _TripFinalState extends State<TripFinal> {
 
   @override
   Widget build(BuildContext context) {
-    print(_isLoading);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -148,7 +147,12 @@ class _TripFinalState extends State<TripFinal> {
       ),
       backgroundColor: Colors.grey[350],
       body: _isloading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: LoadingAnimationWidget.twistingDots(
+              leftDotColor: const Color(0xFF1A1A3F),
+              rightDotColor: const Color(0xFFEA3799),
+              size: 50,
+            ))
           : SingleChildScrollView(
               child: Column(children: [
                 Consumer<TripManager>(
@@ -292,109 +296,225 @@ class _TripFinalState extends State<TripFinal> {
                                                   ),
                                                 ],
                                               ),
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.all(6.0),
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(3.0),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: senergyColorb
-                                                            .withOpacity(.3))),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        tripManager.single_trip!
-                                                                    .startUnixTime ==
-                                                                0
-                                                            ? ''
-                                                            : DateTime.fromMillisecondsSinceEpoch(
-                                                                    tripManager
+                                                    const EdgeInsets.all(4.0),
+                                                child: Material(
+                                                  elevation: 3,
+                                                  child: Container(
+                                                    // margin:
+                                                    //     const EdgeInsets.all(
+                                                    //         6.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: senergyColorb
+                                                                .withOpacity(
+                                                                    .3))),
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            tripManager.single_trip!
+                                                                        .startUnixTime ==
+                                                                    0
+                                                                ? ''
+                                                                : DateTime.fromMillisecondsSinceEpoch(tripManager
                                                                         .single_trip!
                                                                         .startUnixTime!)
-                                                                .toString()
-                                                                .substring(
-                                                                    0,
-                                                                    tripManager
-                                                                            .single_trip!
-                                                                            .startUnixTime!
-                                                                            .toString()
-                                                                            .length +
-                                                                        3)
-                                                                .replaceAll(
-                                                                    RegExp(' '),
-                                                                    ' , '),
-                                                        style: const TextStyle(
-                                                            // color: text_colors[
-                                                            //     Index %
-                                                            //         colors
-                                                            //             .length],
-                                                            fontFamily:
-                                                                'AraHamah1964R-Bold'),
-                                                      ),
-                                                    ]),
+                                                                    .toString()
+                                                                    .substring(
+                                                                        0,
+                                                                        tripManager.single_trip!.startUnixTime!.toString().length +
+                                                                            3)
+                                                                    .replaceAll(
+                                                                        RegExp(
+                                                                            ' '),
+                                                                        ' , '),
+                                                            style: const TextStyle(
+                                                                // color: text_colors[
+                                                                //     Index %
+                                                                //         colors
+                                                                //             .length],
+                                                                fontFamily: 'AraHamah1964R-Bold'),
+                                                          ),
+                                                        ]),
+                                                  ),
+                                                ),
                                               ),
+                                              // Container(;
+                                              //   margin:
+                                              //       const EdgeInsets.all(6.0),
+                                              //   padding:
+                                              //       const EdgeInsets.all(3.0),
+                                              //   decoration: BoxDecoration(
+                                              //       border: Border.all(
+                                              //           color: senergyColorb
+                                              //               .withOpacity(.3))),
+                                              //   child: Column(
+                                              //       mainAxisAlignment:
+                                              //           MainAxisAlignment
+                                              //               .center,
+                                              //       children: [
+                                              //         Text(
+                                              //           tripManager.single_trip!
+                                              //                       .startUnixTime ==
+                                              //                   0
+                                              //               ? ''
+                                              //               : DateTime.fromMillisecondsSinceEpoch(
+                                              //                       tripManager
+                                              //                           .single_trip!
+                                              //                           .startUnixTime!)
+                                              //                   .toString()
+                                              //                   .substring(
+                                              //                       0,
+                                              //                       tripManager
+                                              //                               .single_trip!
+                                              //                               .startUnixTime!
+                                              //                               .toString()
+                                              //                               .length +
+                                              //                           3)
+                                              //                   .replaceAll(
+                                              //                       RegExp(' '),
+                                              //                       ' , '),
+                                              //           style: const TextStyle(
+                                              //               // color: text_colors[
+                                              //               //     Index %
+                                              //               //         colors
+                                              //               //             .length],
+                                              //               fontFamily:
+                                              //                   'AraHamah1964R-Bold'),
+                                              //         ),
+                                              //       ]),
+                                              // ),
                                               const Text('to'),
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.all(6.0),
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(3.0),
-                                                decoration: BoxDecoration(
-                                                    color: DateTime.now()
-                                                                    .toUtc()
-                                                                    .millisecondsSinceEpoch >
-                                                                tripManager
-                                                                    .single_trip!
-                                                                    .endUnixTime! &&
-                                                            !tripManager
-                                                                .single_trip!
-                                                                .isClosed!
-                                                        ? const Color.fromARGB(
-                                                            255, 255, 209, 206)
-                                                        : null,
-                                                    border: Border.all(
-                                                        color: senergyColorb
-                                                            .withOpacity(.3))),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        tripManager.single_trip!
-                                                                    .endUnixTime ==
-                                                                0
-                                                            ? ''
-                                                            : DateTime.fromMillisecondsSinceEpoch(
+                                                    const EdgeInsets.all(4.0),
+                                                child: Material(
+                                                  elevation: 3,
+                                                  child: Container(
+                                                    // margin:
+                                                    //     const EdgeInsets.all(
+                                                    //         6.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    decoration: BoxDecoration(
+                                                        color: DateTime.now()
+                                                                        .toUtc()
+                                                                        .millisecondsSinceEpoch >
                                                                     tripManager
                                                                         .single_trip!
+                                                                        .endUnixTime! &&
+                                                                !tripManager
+                                                                    .single_trip!
+                                                                    .isClosed!
+                                                            ? const Color.fromARGB(
+                                                                255,
+                                                                255,
+                                                                209,
+                                                                206)
+                                                            : null,
+                                                        border: Border.all(
+                                                            color: senergyColorb
+                                                                .withOpacity(
+                                                                    .3))),
+
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            tripManager.single_trip!
+                                                                        .endUnixTime ==
+                                                                    0
+                                                                ? ''
+                                                                : DateTime.fromMillisecondsSinceEpoch(tripManager
+                                                                        .single_trip!
                                                                         .endUnixTime!)
-                                                                .toString()
-                                                                .substring(
-                                                                    0,
-                                                                    tripManager
-                                                                            .single_trip!
-                                                                            .endUnixTime!
-                                                                            .toString()
-                                                                            .length +
-                                                                        3)
-                                                                .replaceAll(
-                                                                    RegExp(' '),
-                                                                    ' , '),
-                                                        style: const TextStyle(
-                                                            // color: text_colors[
-                                                            //     Index %
-                                                            //         colors
-                                                            //             .length],
-                                                            fontFamily:
-                                                                'AraHamah1964R-Bold'),
-                                                      ),
-                                                    ]),
+                                                                    .toString()
+                                                                    .substring(
+                                                                        0,
+                                                                        tripManager.single_trip!.endUnixTime!.toString().length +
+                                                                            3)
+                                                                    .replaceAll(
+                                                                        RegExp(
+                                                                            ' '),
+                                                                        ' , '),
+                                                            style: const TextStyle(
+                                                                // color: text_colors[
+                                                                //     Index %
+                                                                //         colors
+                                                                //             .length],
+                                                                fontFamily: 'AraHamah1964R-Bold'),
+                                                          ),
+                                                        ]),
+                                                  ),
+                                                ),
                                               ),
+                                              // Container(
+                                              //   margin:
+                                              //       const EdgeInsets.all(6.0),
+                                              //   padding:
+                                              //       const EdgeInsets.all(3.0),
+                                              //   decoration: BoxDecoration(
+                                              //       color: DateTime.now()
+                                              //                       .toUtc()
+                                              //                       .millisecondsSinceEpoch >
+                                              //                   tripManager
+                                              //                       .single_trip!
+                                              //                       .endUnixTime! &&
+                                              //               !tripManager
+                                              //                   .single_trip!
+                                              //                   .isClosed!
+                                              //           ? const Color.fromARGB(
+                                              //               255, 255, 209, 206)
+                                              //           : null,
+                                              //       border: Border.all(
+                                              //           color: senergyColorb
+                                              //               .withOpacity(.3))),
+                                              //   child: Column(
+                                              //       mainAxisAlignment:
+                                              //           MainAxisAlignment
+                                              //               .center,
+                                              //       children: [
+                                              //         Text(
+                                              //           tripManager.single_trip!
+                                              //                       .endUnixTime ==
+                                              //                   0
+                                              //               ? ''
+                                              //               : DateTime.fromMillisecondsSinceEpoch(
+                                              //                       tripManager
+                                              //                           .single_trip!
+                                              //                           .endUnixTime!)
+                                              //                   .toString()
+                                              //                   .substring(
+                                              //                       0,
+                                              //                       tripManager
+                                              //                               .single_trip!
+                                              //                               .endUnixTime!
+                                              //                               .toString()
+                                              //                               .length +
+                                              //                           3)
+                                              //                   .replaceAll(
+                                              //                       RegExp(' '),
+                                              //                       ' , '),
+                                              //           style: const TextStyle(
+                                              //               // color: text_colors[
+                                              //               //     Index %
+                                              //               //         colors
+                                              //               //             .length],
+                                              //               fontFamily:
+                                              //                   'AraHamah1964R-Bold'),
+                                              //         ),
+                                              //       ]),
+                                              // ),
 
                                               //  Icon(
                                               //   Icons.cancel_outlined,

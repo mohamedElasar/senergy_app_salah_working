@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:senergy/Screens/Trip_final/trip_final.dart';
+
 import 'package:senergy/constants.dart';
 import 'package:senergy/managers/auth_manager.dart';
 import 'package:senergy/managers/har_text_manager.dart';

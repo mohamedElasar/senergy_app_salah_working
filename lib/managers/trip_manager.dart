@@ -185,13 +185,10 @@ class TripManager extends ChangeNotifier {
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       dio.options.headers["Accept"] = 'application/json';
       var response = await dio.post(urld, data: jsonEncode(params));
-      // print(response.data['trip']['isApproved']);
       return response.data['trip']['isApproved'];
     } on DioError catch (e) {
       throw HttpException(e.response!.data['message']);
     }
-
-    notifyListeners();
   }
 
   // ignore: non_constant_identifier_names
@@ -215,6 +212,7 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print('errortrips');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -240,6 +238,7 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print(error);
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -265,15 +264,13 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print(error);
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
   }
 
   Future<void> get_all_trips({bool mine = false}) async {
-    // var url = Uri.http('10.0.2.2:5000', '/api/trips');
-    print(_trips!.length.toString());
-
     var url = mine
         ? Uri.http(
             '10.0.2.2:5000',
@@ -309,6 +306,7 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print('errortrips');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -319,7 +317,6 @@ class TripManager extends ChangeNotifier {
     _loading = true;
     _pageNumber = 0;
     _error = false;
-    // print(_pageNumber);
     notifyListeners();
   }
 
@@ -362,8 +359,6 @@ class TripManager extends ChangeNotifier {
       );
 
       final responseData = json.decode(response.body);
-      // print(url);
-      // print(responseData);
 
       List<dynamic> tripsList = responseData['trips'];
       var fetchedTrips =
@@ -374,7 +369,6 @@ class TripManager extends ChangeNotifier {
       _pageNumber = _pageNumber + 1;
 
       _trips!.addAll(fetchedTrips);
-      // print(_trips!.length.toString());
     } catch (e) {
       print(e);
       _loading = false;
@@ -398,11 +392,9 @@ class TripManager extends ChangeNotifier {
       final responseData = json.decode(response.body);
 
       _single_trip = TripModel.fromJson(responseData[0]);
-
-      // add exception
-      // print(_single_trip);
     } catch (error) {
       print(error);
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -423,6 +415,7 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print('closesingleTripError');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -440,6 +433,7 @@ class TripManager extends ChangeNotifier {
       );
     } catch (error) {
       print('dangersingleTripError');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -460,6 +454,7 @@ class TripManager extends ChangeNotifier {
 
     } catch (error) {
       print('closesingleTripError');
+      throw HttpException(error.toString());
     }
 
     notifyListeners();
@@ -469,9 +464,9 @@ class TripManager extends ChangeNotifier {
     var url = Uri.http('10.0.2.2:5000', '/api/trips/$id/delete');
     final existingIndex = _trips!.indexWhere((trip) => trip.id == id);
     var existingtrip = _trips![existingIndex];
-    // print(existingsubject.name);
+
     _trips!.removeAt(existingIndex);
-    // print('here');
+
     notifyListeners();
     try {
       var response = await http.delete(

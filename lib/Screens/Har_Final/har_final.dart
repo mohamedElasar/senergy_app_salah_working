@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
-import 'package:senergy/Screens/Trip_final/final_checklist.dart';
+
 import 'package:senergy/managers/Har_report_requ.dart';
 import 'package:senergy/managers/app_state_manager.dart';
-import 'package:senergy/managers/trip_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import '../../httpexception.dart';
@@ -325,7 +324,12 @@ class _HarFinalState extends State<HarFinal> {
       ),
       backgroundColor: Colors.grey[350],
       body: _isloading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: LoadingAnimationWidget.twistingDots(
+              leftDotColor: const Color(0xFF1A1A3F),
+              rightDotColor: const Color(0xFFEA3799),
+              size: 50,
+            ))
           : SingleChildScrollView(
               child: Column(children: [
                 Consumer<HarReport_Manager>(
@@ -403,48 +407,102 @@ class _HarFinalState extends State<HarFinal> {
                                                   fontFamily:
                                                       'AraHamah1964R-Bold')),
                                           Column(children: [
-                                            Container(
-                                              margin: const EdgeInsets.all(6.0),
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: senergyColorb
-                                                          .withOpacity(.3))),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    harManager.single_har!
-                                                                .reportDate ==
-                                                            0
-                                                        ? ''
-                                                        : DateTime.fromMillisecondsSinceEpoch(
-                                                                harManager
-                                                                    .single_har!
-                                                                    .reportDate!)
-                                                            .toString()
-                                                            .substring(
-                                                                0,
-                                                                harManager
-                                                                        .single_har!
-                                                                        .reportDate!
-                                                                        .toString()
-                                                                        .length +
-                                                                    3)
-                                                            .replaceAll(
-                                                                RegExp(' '),
-                                                                ' , '),
-                                                    style: TextStyle(
-                                                        color: text_colors[
-                                                            0 % colors.length],
-                                                        fontFamily:
-                                                            'AraHamah1964R-Bold'),
-                                                  ),
-                                                ],
+                                                  const EdgeInsets.all(4.0),
+                                              child: Material(
+                                                elevation: 3,
+                                                child: Container(
+                                                  // margin:
+                                                  //     const EdgeInsets.all(
+                                                  //         6.0),
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: senergyColorb
+                                                              .withOpacity(
+                                                                  .3))),
+                                                  child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          harManager.single_har!
+                                                                      .reportDate ==
+                                                                  0
+                                                              ? ''
+                                                              : DateTime.fromMillisecondsSinceEpoch(
+                                                                      harManager
+                                                                          .single_har!
+                                                                          .reportDate!)
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0,
+                                                                      harManager
+                                                                              .single_har!
+                                                                              .reportDate!
+                                                                              .toString()
+                                                                              .length +
+                                                                          3)
+                                                                  .replaceAll(
+                                                                      RegExp(
+                                                                          ' '),
+                                                                      ' , '),
+                                                          style: const TextStyle(
+                                                              // color: text_colors[
+                                                              //     Index %
+                                                              //         colors
+                                                              //             .length],
+                                                              fontFamily: 'AraHamah1964R-Bold'),
+                                                        ),
+                                                      ]),
+                                                ),
                                               ),
                                             ),
+                                            // Container(
+                                            //   margin: const EdgeInsets.all(6.0),
+                                            //   padding:
+                                            //       const EdgeInsets.all(3.0),
+                                            //   decoration: BoxDecoration(
+                                            //       border: Border.all(
+                                            //           color: senergyColorb
+                                            //               .withOpacity(.3))),
+                                            //   child: Column(
+                                            //     mainAxisAlignment:
+                                            //         MainAxisAlignment.center,
+                                            //     children: [
+                                            //       Text(
+                                            //         harManager.single_har!
+                                            //                     .reportDate ==
+                                            //                 0
+                                            //             ? ''
+                                            //             : DateTime.fromMillisecondsSinceEpoch(
+                                            //                     harManager
+                                            //                         .single_har!
+                                            //                         .reportDate!)
+                                            //                 .toString()
+                                            //                 .substring(
+                                            //                     0,
+                                            //                     harManager
+                                            //                             .single_har!
+                                            //                             .reportDate!
+                                            //                             .toString()
+                                            //                             .length +
+                                            //                         3)
+                                            //                 .replaceAll(
+                                            //                     RegExp(' '),
+                                            //                     ' , '),
+                                            //         style: TextStyle(
+                                            //             color: text_colors[
+                                            //                 0 % colors.length],
+                                            //             fontFamily:
+                                            //                 'AraHamah1964R-Bold'),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // ),
                                           ]),
                                         ],
                                       ),
@@ -794,36 +852,51 @@ class _HarFinalState extends State<HarFinal> {
                                   ),
                             const Divider(),
                             // harManager.single_har!.image != null
-                            if (harManager.single_har!.image != null &&
-                                !actionView)
-                              Container(
-                                width: size.width * .95,
-                                child: Image.network(
-                                  'http://10.0.2.2:5000/images/' +
-                                      // 'images/2022-07-03T19-59-43.585Zb52f0a3a-5509-48c6-be18-05e04b4ef91f8874079307014466216.jpg'
-                                      harManager.single_har!.image!
-                                          .split(r'\')[1],
-                                  fit: BoxFit.fill,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            // : Container(),
+                            // if (harManager.single_har!.image == null)
+                            //   Container(),
+                            // if (harManager.single_har!.image != null &&
+                            //     !actionView)
+                            harManager.single_har!.image != null && !actionView
+                                ? SizedBox(
+                                    width: size.width * .95,
+                                    child: Image.network(
+                                      'http://10.0.2.2:5000/images/' +
+                                          // 'images/2022-07-03T19-59-43.585Zb52f0a3a-5509-48c6-be18-05e04b4ef91f8874079307014466216.jpg'
+                                          harManager.single_har!.image!
+                                              .split(r'\')[1],
+                                      fit: BoxFit.fill,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                          color: Colors.amber,
+                                          alignment: Alignment.center,
+                                          child: const Text(
+                                            'Img Deleted From Server !',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        );
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : Container(),
                             // Divider(),
                           ],
                         ),

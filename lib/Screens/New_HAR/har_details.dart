@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/Screens/New_HAR/har_form2.dart';
@@ -88,20 +89,6 @@ class _TripDetailsState extends State<HarDetails> {
       try {
         await Provider.of<HarReport_Manager>(context, listen: false)
             .get_har_report_requirments()
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_department())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_likelihood())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_locations())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_report_types_())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_severity())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_har_types())
-            // .then((_) => Provider.of<HarReport_Manager>(context, listen: false)
-            //     .get_classificationGroups())
             .then((_) {
           setState(() {
             _isLoading = false;
@@ -146,8 +133,12 @@ class _TripDetailsState extends State<HarDetails> {
           backgroundColor: Colors.white,
         ),
         body: _isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Center(
+                child: LoadingAnimationWidget.twistingDots(
+                  leftDotColor: const Color(0xFF1A1A3F),
+                  rightDotColor: const Color(0xFFEA3799),
+                  size: 50,
+                ),
               )
             : buildPageView(size),
         bottomNavigationBar: BottomNavigationBar(
@@ -162,63 +153,3 @@ class _TripDetailsState extends State<HarDetails> {
     );
   }
 }
-
-
-
-
-
-
-// class TripTopPage extends StatelessWidget {
-//   const TripTopPage({Key? key, required this.size}) : super(key: key);
-//   final Size size;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: Colors.white,
-//       height: size.height * .1,
-//       width: size.width,
-//       padding: EdgeInsets.symmetric(horizontal: 10),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           InkWell(
-//             onTap: () {
-//               Provider.of<AppStateManager>(context, listen: false)
-//                   .gototripdetails(false);
-//             },
-//             child: const Icon(
-//               Icons.arrow_back,
-//               size: 30,
-//             ),
-//           ),
-//           const Text(
-//             'NEW TRIP',
-//             style: TextStyle(
-//                 fontSize: 40,
-//                 fontWeight: FontWeight.bold,
-//                 fontFamily: 'AraHamah1964B-Bold',
-//                 color: senergyColorb),
-//           ),
-//           InkWell(
-//             onTap: () async {
-//               // await showSearch(context: context, delegate: StudentSearch());
-//             },
-//             child: Row(
-//               children: const [
-//                 Text(
-//                   '',
-//                   style: TextStyle(
-//                       fontFamily: 'GE-light',
-//                       color: Colors.black87,
-//                       fontSize: 20),
-//                 ),
-//                 Text('')
-//               ],
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:senergy/Navigation/screens.dart';
+
 import 'package:senergy/constants.dart';
 import 'package:senergy/managers/app_state_manager.dart';
-import 'package:senergy/managers/trip_manager.dart';
 
-import '../../httpexception.dart';
 import '../../managers/Har_report_requ.dart';
 
 // ignore: must_be_immutable
@@ -120,8 +119,12 @@ class _HarReportsViewState extends State<HarReportsView> {
     final size = MediaQuery.of(context).size;
 
     return _isloading
-        ? const Center(
-            child: CircularProgressIndicator(),
+        ? Center(
+            child: LoadingAnimationWidget.twistingDots(
+              leftDotColor: const Color(0xFF1A1A3F),
+              rightDotColor: const Color(0xFFEA3799),
+              size: 50,
+            ),
           )
         : Column(
             children: [
@@ -140,6 +143,17 @@ class _HarReportsViewState extends State<HarReportsView> {
                     ),
                     child: Consumer<HarReport_Manager>(
                         builder: (builder, harManager, child) {
+                      // if (widget.mine == true && harManager.data!.isEmpty) {
+                      //   return const Center(
+                      //       child: Text(
+                      //     'YOU DONT HAVE HARS!!',
+                      //     style: TextStyle(
+                      //         fontFamily: 'GE-medium',
+                      //         fontSize: 20,
+                      //         fontWeight: FontWeight.bold,
+                      //         color: senergyColorg),
+                      //   ));
+                      // }
                       if (harManager.data!.isEmpty) {
                         if (harManager.loading) {
                           return const Center(
@@ -188,10 +202,14 @@ class _HarReportsViewState extends State<HarReportsView> {
                                   ),
                                 ));
                               } else {
-                                return const Center(
+                                return Center(
                                     child: Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: CircularProgressIndicator(),
+                                  padding: const EdgeInsets.all(8),
+                                  child: LoadingAnimationWidget.twistingDots(
+                                    leftDotColor: const Color(0xFF1A1A3F),
+                                    rightDotColor: const Color(0xFFEA3799),
+                                    size: 50,
+                                  ),
                                 ));
                               }
                             }
@@ -257,49 +275,63 @@ class _HarReportsViewState extends State<HarReportsView> {
                                                   fontFamily:
                                                       'AraHamah1964R-Bold')),
                                           Column(children: [
-                                            Container(
-                                              margin: const EdgeInsets.all(6.0),
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: senergyColorb
-                                                          .withOpacity(.3))),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    harManager.data![Index]
-                                                                .reportDate ==
-                                                            0
-                                                        ? ''
-                                                        : DateTime.fromMillisecondsSinceEpoch(
-                                                                harManager
-                                                                    .data![
-                                                                        Index]
-                                                                    .reportDate!)
-                                                            .toString()
-                                                            .substring(
-                                                                0,
-                                                                harManager
-                                                                        .data![
-                                                                            Index]
-                                                                        .reportDate!
-                                                                        .toString()
-                                                                        .length +
-                                                                    3)
-                                                            .replaceAll(
-                                                                RegExp(' '),
-                                                                ' , '),
-                                                    style: TextStyle(
-                                                        color: text_colors[
-                                                            Index %
-                                                                colors.length],
-                                                        fontFamily:
-                                                            'AraHamah1964R-Bold'),
-                                                  ),
-                                                ],
+                                                  const EdgeInsets.all(4.0),
+                                              child: Material(
+                                                elevation: 3,
+                                                child: Container(
+                                                  // margin:
+                                                  //     const EdgeInsets.all(
+                                                  //         6.0),
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: senergyColorb
+                                                              .withOpacity(
+                                                                  .3))),
+                                                  child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          harManager
+                                                                      .data![
+                                                                          Index]
+                                                                      .reportDate ==
+                                                                  0
+                                                              ? ''
+                                                              : DateTime.fromMillisecondsSinceEpoch(
+                                                                      harManager
+                                                                          .data![
+                                                                              Index]
+                                                                          .reportDate!)
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0,
+                                                                      harManager
+                                                                              .data![
+                                                                                  Index]
+                                                                              .reportDate!
+                                                                              .toString()
+                                                                              .length +
+                                                                          3)
+                                                                  .replaceAll(
+                                                                      RegExp(
+                                                                          ' '),
+                                                                      ' , '),
+                                                          style: TextStyle(
+                                                              color: text_colors[
+                                                                  Index %
+                                                                      colors
+                                                                          .length],
+                                                              fontFamily:
+                                                                  'AraHamah1964R-Bold'),
+                                                        ),
+                                                      ]),
+                                                ),
                                               ),
                                             ),
                                           ]),

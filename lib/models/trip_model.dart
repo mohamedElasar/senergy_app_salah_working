@@ -5,16 +5,13 @@ import 'har_models.dart';
 
 class TripModel {
   int? id;
-  // String? driverName;
+
   String? phone;
   String? carNumber;
   String? passengers;
   String? from;
   String? to;
-  // String? startTime;
-  // String? eArrivalTime;
-  // String? startday;
-  // String? eArrivalday;
+
   String? user;
   bool? tirepressure;
   bool? wear;
@@ -81,14 +78,11 @@ class TripModel {
 
   TripModel(
       {this.id,
-      // this.driverName,
       this.phone,
       this.carNumber,
       this.passengers,
       this.from,
       this.to,
-      // this.startTime,
-      // this.eArrivalTime,
       this.user,
       this.tirepressure,
       this.wear,

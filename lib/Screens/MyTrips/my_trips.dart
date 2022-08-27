@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:senergy/Navigation/screens.dart';
 import 'package:senergy/constants.dart';
@@ -157,8 +158,12 @@ class _MyTripsState extends State<MyTrips> {
       ),
       backgroundColor: Colors.grey[350],
       body: _isloading
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Center(
+              child: LoadingAnimationWidget.twistingDots(
+                leftDotColor: const Color(0xFF1A1A3F),
+                rightDotColor: const Color(0xFFEA3799),
+                size: 50,
+              ),
             )
           : Column(
               children: [
@@ -178,11 +183,27 @@ class _MyTripsState extends State<MyTrips> {
                       child: Consumer<TripManager>(
                           builder: (builder, tripManager, child) {
                         if (tripManager.trips!.isEmpty) {
+                          return const Center(
+                              child: Text(
+                            'NO TRIPS AVAILABLE!!',
+                            style: TextStyle(
+                                fontFamily: 'GE-medium',
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: senergyColorg),
+                          ));
+                        }
+
+                        if (tripManager.trips!.isEmpty) {
                           if (tripManager.loading) {
-                            return const Center(
+                            return Center(
                                 child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: CircularProgressIndicator(),
+                              padding: const EdgeInsets.all(8),
+                              child: LoadingAnimationWidget.twistingDots(
+                                leftDotColor: const Color(0xFF1A1A3F),
+                                rightDotColor: const Color(0xFFEA3799),
+                                size: 50,
+                              ),
                             ));
                           } else if (tripManager.error) {
                             return Center(
@@ -207,7 +228,6 @@ class _MyTripsState extends State<MyTrips> {
                             itemCount: tripManager.trips!.length +
                                 (tripManager.hasmore ? 1 : 0),
                             itemBuilder: (BuildContext ctxt, int Index) {
-                              print(tripManager.trips!.length);
                               // (tripManager.hasmore ? 1 : 0));
                               if (Index == tripManager.trips!.length) {
                                 if (tripManager.error) {
@@ -227,10 +247,14 @@ class _MyTripsState extends State<MyTrips> {
                                     ),
                                   ));
                                 } else {
-                                  return const Center(
+                                  return Center(
                                       child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: CircularProgressIndicator(),
+                                    padding: const EdgeInsets.all(8),
+                                    child: LoadingAnimationWidget.twistingDots(
+                                      leftDotColor: const Color(0xFF1A1A3F),
+                                      rightDotColor: const Color(0xFFEA3799),
+                                      size: 50,
+                                    ),
                                   ));
                                 }
                               }
@@ -405,118 +429,132 @@ class _MyTripsState extends State<MyTrips> {
                                                     ],
                                                   ),
 
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.all(
-                                                            6.0),
+                                                  Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            3.0),
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: senergyColorb
-                                                                .withOpacity(
-                                                                    .3))),
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            tripManager
-                                                                        .trips![
-                                                                            Index]
-                                                                        .startUnixTime ==
-                                                                    0
-                                                                ? ''
-                                                                : DateTime.fromMillisecondsSinceEpoch(tripManager
-                                                                        .trips![
-                                                                            Index]
-                                                                        .startUnixTime!)
-                                                                    .toString()
-                                                                    .substring(
-                                                                        0,
-                                                                        tripManager.trips![Index].startUnixTime!.toString().length +
-                                                                            3)
-                                                                    .replaceAll(
-                                                                        RegExp(
-                                                                            ' '),
-                                                                        ' , '),
-                                                            style: TextStyle(
-                                                                color: text_colors[
-                                                                    Index %
-                                                                        colors
-                                                                            .length],
-                                                                fontFamily:
-                                                                    'AraHamah1964R-Bold'),
-                                                          ),
-                                                        ]),
+                                                            4.0),
+                                                    child: Material(
+                                                      elevation: 3,
+                                                      child: Container(
+                                                        // margin:
+                                                        //     const EdgeInsets.all(
+                                                        //         6.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(3.0),
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: senergyColorb
+                                                                    .withOpacity(
+                                                                        .3))),
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                tripManager
+                                                                            .trips![
+                                                                                Index]
+                                                                            .startUnixTime ==
+                                                                        0
+                                                                    ? ''
+                                                                    : DateTime.fromMillisecondsSinceEpoch(tripManager
+                                                                            .trips![
+                                                                                Index]
+                                                                            .startUnixTime!)
+                                                                        .toString()
+                                                                        .substring(
+                                                                            0,
+                                                                            tripManager.trips![Index].startUnixTime!.toString().length +
+                                                                                3)
+                                                                        .replaceAll(
+                                                                            RegExp(' '),
+                                                                            ' , '),
+                                                                style: TextStyle(
+                                                                    color: text_colors[
+                                                                        Index %
+                                                                            colors
+                                                                                .length],
+                                                                    fontFamily:
+                                                                        'AraHamah1964R-Bold'),
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                    ),
                                                   ),
                                                   const Text('to'),
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.all(
-                                                            6.0),
+                                                  Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            3.0),
-                                                    decoration: BoxDecoration(
-                                                        color: DateTime.now()
-                                                                        .toUtc()
-                                                                        .millisecondsSinceEpoch >
-                                                                    tripManager
+                                                            4.0),
+                                                    child: Material(
+                                                      elevation: 3,
+                                                      child: Container(
+                                                        // margin:
+                                                        //     const EdgeInsets.all(
+                                                        //         6.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(3.0),
+                                                        decoration: BoxDecoration(
+                                                            color: DateTime.now()
+                                                                            .toUtc()
+                                                                            .millisecondsSinceEpoch >
+                                                                        tripManager
+                                                                            .trips![
+                                                                                Index]
+                                                                            .endUnixTime! &&
+                                                                    !tripManager
                                                                         .trips![
                                                                             Index]
-                                                                        .endUnixTime! &&
-                                                                !tripManager
-                                                                    .trips![
-                                                                        Index]
-                                                                    .isClosed!
-                                                            ? const Color
-                                                                    .fromARGB(
-                                                                255,
-                                                                255,
-                                                                209,
-                                                                206)
-                                                            : Colors.white,
-                                                        border: Border.all(
-                                                            color: senergyColorb
-                                                                .withOpacity(
-                                                                    .3))),
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            tripManager
-                                                                        .trips![
-                                                                            Index]
-                                                                        .endUnixTime ==
-                                                                    0
-                                                                ? ''
-                                                                : DateTime.fromMillisecondsSinceEpoch(tripManager
-                                                                        .trips![
-                                                                            Index]
-                                                                        .endUnixTime!)
-                                                                    .toString()
-                                                                    .substring(
-                                                                        0,
-                                                                        tripManager.trips![Index].endUnixTime!.toString().length +
-                                                                            3)
-                                                                    .replaceAll(
-                                                                        RegExp(
-                                                                            ' '),
-                                                                        ' , '),
-                                                            style: TextStyle(
-                                                                color: text_colors[
-                                                                    Index %
-                                                                        colors
-                                                                            .length],
-                                                                fontFamily:
-                                                                    'AraHamah1964R-Bold'),
-                                                          ),
-                                                        ]),
+                                                                        .isClosed!
+                                                                ? const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    255,
+                                                                    209,
+                                                                    206)
+                                                                : Colors.white,
+                                                            border: Border.all(
+                                                                color: senergyColorb
+                                                                    .withOpacity(
+                                                                        .3))),
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                tripManager
+                                                                            .trips![
+                                                                                Index]
+                                                                            .endUnixTime ==
+                                                                        0
+                                                                    ? ''
+                                                                    : DateTime.fromMillisecondsSinceEpoch(tripManager
+                                                                            .trips![
+                                                                                Index]
+                                                                            .endUnixTime!)
+                                                                        .toString()
+                                                                        .substring(
+                                                                            0,
+                                                                            tripManager.trips![Index].endUnixTime!.toString().length +
+                                                                                3)
+                                                                        .replaceAll(
+                                                                            RegExp(' '),
+                                                                            ' , '),
+                                                                style: TextStyle(
+                                                                    color: text_colors[
+                                                                        Index %
+                                                                            colors
+                                                                                .length],
+                                                                    fontFamily:
+                                                                        'AraHamah1964R-Bold'),
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                    ),
                                                   ),
 
                                                   //  Icon(

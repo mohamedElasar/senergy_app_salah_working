@@ -102,7 +102,6 @@ class _HarFormState extends State<HarForm> {
   bool isinit = true;
   @override
   void didChangeDependencies() {
-    print(Provider.of<HarTextManager>(context, listen: false).event_date);
     // MediaQuery.of(context)
     if (isinit) {
       title_controller = TextEditingController(
