@@ -86,7 +86,7 @@ class HarReport_Manager extends ChangeNotifier {
   final int _defaultsizePerPage = 10;
 
   Future<void> get_users() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/users');
+    var url = Uri.http('192.168.0.19:5000', '/api/users');
 
     try {
       var response = await http.get(
@@ -113,7 +113,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_types() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/har_types');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/har_types');
     try {
       var response = await http.get(
         url,
@@ -137,7 +137,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_locations() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/locations');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/locations');
     try {
       var response = await http.get(
         url,
@@ -164,7 +164,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_likelihood() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/likelihood');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/likelihood');
     try {
       var response = await http.get(
         url,
@@ -191,7 +191,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_severity() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/severity');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/severity');
     try {
       var response = await http.get(
         url,
@@ -218,7 +218,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_department() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/department');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/department');
     try {
       var response = await http.get(
         url,
@@ -245,7 +245,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_report_requirments() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/all/required/report');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/all/required/report');
     try {
       var response = await http.get(
         url,
@@ -303,7 +303,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_category() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/hazards_categories');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/hazards_categories');
     try {
       var response = await http.get(
         url,
@@ -330,7 +330,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_har_report_types_() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/report_type');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/report_type');
     try {
       var response = await http.get(
         url,
@@ -356,7 +356,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_classificationGroups() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/class_details');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/class_details');
     try {
       var response = await http.get(
         url,
@@ -396,7 +396,7 @@ class HarReport_Manager extends ChangeNotifier {
       category,
       checklist_list,
       event_severity}) async {
-    // var url = Uri.http('10.0.2.2:5000', '/api/har/report');
+    // var url = Uri.http('192.168.0.19:5000', '/api/har/report');
 
     String fileName = file.path.split('/').last;
     FormData formData = FormData.fromMap({
@@ -418,7 +418,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     try {
       Dio dio = Dio();
-      String urld = 'http://10.0.2.2:5000/api/har/report';
+      String urld = 'http://192.168.0.19:5000/api/har/report';
 
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       var response = await dio.post(
@@ -454,7 +454,7 @@ class HarReport_Manager extends ChangeNotifier {
       category,
       checklist_list,
       event_severity}) async {
-    // var url = Uri.http('10.0.2.2:5000', '/api/har/report');
+    // var url = Uri.http('192.168.0.19:5000', '/api/har/report');
 
     FormData formData = FormData.fromMap({
       'reporter': reporter_id,
@@ -474,7 +474,7 @@ class HarReport_Manager extends ChangeNotifier {
 
     try {
       Dio dio = Dio();
-      String urld = 'http://10.0.2.2:5000/api/har/report';
+      String urld = 'http://192.168.0.19:5000/api/har/report';
 
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       var response = await dio.post(
@@ -499,9 +499,9 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_all_hars({bool mine = false}) async {
-    // var url = Uri.http('10.0.2.2:5000', '/api/trips');
+    // var url = Uri.http('192.168.0.19:5000', '/api/trips');
     var url = Uri.http(
-      '10.0.2.2:5000',
+      '192.168.0.19:5000',
       '/api/har/reports',
       {
         "page": '0',
@@ -533,7 +533,7 @@ class HarReport_Manager extends ChangeNotifier {
 
   Future<void> getMoreData({bool mine = false}) async {
     // var url = Uri.http(
-    //   '10.0.2.2:5000',
+    //   '192.168.0.19:5000',
     //   '/api/har/reports',
     //   {
     //     "page": _pageNumber.toString(),
@@ -542,7 +542,7 @@ class HarReport_Manager extends ChangeNotifier {
     // );
     var url = mine
         ? Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/har/reports/mine/all/mine',
             {
               "page": _pageNumber.toString(),
@@ -550,7 +550,7 @@ class HarReport_Manager extends ChangeNotifier {
             },
           )
         : Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/har/reports',
             {
               "page": _pageNumber.toString(),
@@ -607,7 +607,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_single_har(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/reports/$id');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/reports/$id');
     try {
       var response = await http.get(
         url,
@@ -631,7 +631,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_single_action(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/myactions/one/$id');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/myactions/one/$id');
     try {
       var response = await http.get(
         url,
@@ -642,7 +642,8 @@ class HarReport_Manager extends ChangeNotifier {
       );
       final responseData = json.decode(response.body);
 
-      _single_action = ActionModel.fromJson(responseData);
+      _single_action = ActionModel.fromJson(responseData['action']);
+      _single_action!.reportIdd!.image = responseData['reportImage'];
 
       // add exception
 
@@ -655,7 +656,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_classifications_for_report(String id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/classifications/$id');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/classifications/$id');
     try {
       var response = await http.get(
         url,
@@ -682,7 +683,7 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_advs() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/advs/all/all');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/advs/all/all');
     try {
       var response = await http.get(
         url,
@@ -708,9 +709,9 @@ class HarReport_Manager extends ChangeNotifier {
   }
 
   Future<void> get_actions_for_user(String id) async {
-    // var url = Uri.http('10.0.2.2:5000', '/api/har/actions/all/$id');
+    // var url = Uri.http('192.168.0.19:5000', '/api/har/actions/all/$id');
     var url = Uri.http(
-      '10.0.2.2:5000',
+      '192.168.0.19:5000',
       '/api/har/actions/all/$id',
       {
         "page": _pageNumber.toString(),
@@ -752,11 +753,11 @@ class HarReport_Manager extends ChangeNotifier {
     int? dueDate,
     int? reportID,
   }) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/action');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/action');
 
     try {
       Dio dio = Dio();
-      String urld = 'http://10.0.2.2:5000/api/har/action';
+      String urld = 'http://192.168.0.19:5000/api/har/action';
       Map<String, dynamic> params = {
         'action_details': actionDetails,
         'target_date': dueDate,
@@ -784,14 +785,14 @@ class HarReport_Manager extends ChangeNotifier {
     String? closingNote,
     int? closingDate,
   }) async {
-    String urld = 'http://10.0.2.2:5000/api/har/action/$id/action';
+    String urld = 'http://192.168.0.19:5000/api/har/action/$id/action';
     Dio dio = Dio();
     Map<String, dynamic> params = {
       'closingNote': closingNote,
       'closing_date': closingDate,
     };
 
-    // var url = Uri.http('10.0.2.2:5000', '/api/har/action/$id/action');
+    // var url = Uri.http('192.168.0.19:5000', '/api/har/action/$id/action');
     try {
       dio.options.headers["Authorization"] = 'Bearer $_authToken';
       dio.options.headers["Accept"] = 'application/json';
@@ -815,7 +816,7 @@ class HarReport_Manager extends ChangeNotifier {
     String? closingNote,
     int? closingDate,
   }) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/action/$id/action');
+    var url = Uri.http('192.168.0.19:5000', '/api/har/action/$id/action');
     try {
       var response = await http.put(
         url,

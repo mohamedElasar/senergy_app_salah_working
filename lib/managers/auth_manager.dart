@@ -26,7 +26,7 @@ class Auth_manager extends ChangeNotifier {
   late FirebaseMessaging messaging;
 
   Future<void> login(String email, String password) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/users/signin/');
+    var url = Uri.http('192.168.0.19:5000', '/api/users/signin/');
     try {
       var response = await http.post(
         url,
@@ -100,7 +100,7 @@ class Auth_manager extends ChangeNotifier {
   }
 
   void postDeviceToken() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/notifications/token/admin/');
+    var url = Uri.http('192.168.0.19:5000', '/api/notifications/token/admin/');
 
     messaging = FirebaseMessaging.instance;
     messaging.getToken().then((value) async {
@@ -123,7 +123,8 @@ class Auth_manager extends ChangeNotifier {
   }
 
   Future<void> sendNotification(String title, String message) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/notifications/token/admin/send');
+    var url =
+        Uri.http('192.168.0.19:5000', '/api/notifications/token/admin/send');
 
     try {
       var response = await http.post(

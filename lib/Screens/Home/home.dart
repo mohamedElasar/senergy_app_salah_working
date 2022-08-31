@@ -37,7 +37,8 @@ class _HomeState extends State<Home> {
   Timer? _timer;
 
   Future getData(String id, String token) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/har/actions/reports/count/$id');
+    var url =
+        Uri.http('192.168.0.19:5000', '/api/har/actions/reports/count/$id');
 
     var response = await http.get(
       url,
@@ -148,7 +149,7 @@ class _HomeState extends State<Home> {
                                       child: Stack(
                                         children: <Widget>[
                                           Image.network(
-                                              'http://10.0.2.2:5000/' +
+                                              'http://192.168.0.19:5000/' +
                                                   item['image'],
                                               fit: BoxFit.cover, errorBuilder:
                                                   (context, error, stackTrace) {
@@ -197,7 +198,7 @@ class _HomeState extends State<Home> {
                   //                               'assets/images/senergy.png',
                   //                             )
                   //                           : Image.network(
-                  //                               'http://10.0.2.2:5000/' +
+                  //                               'http://192.168.0.19:5000/' +
                   //                                   item.image!,
                   //                               fit: BoxFit.cover,
                   //                               errorBuilder: (context,

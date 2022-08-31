@@ -639,7 +639,7 @@ class _ActionFInalState extends State<ActionFInal> {
                               Container(
                                 width: size.width * .95,
                                 child: Image.network(
-                                  'http://10.0.2.2:5000/images/' +
+                                  'http://192.168.0.19:5000/images/' +
                                       // 'images/2022-07-03T19-59-43.585Zb52f0a3a-5509-48c6-be18-05e04b4ef91f8874079307014466216.jpg'
                                       harManager
                                           .single_action!.reportIdd!.image!

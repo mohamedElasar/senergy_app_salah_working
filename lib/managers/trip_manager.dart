@@ -113,10 +113,10 @@ class TripManager extends ChangeNotifier {
     // bool isClosed,
     // dynamic isClosedAt,
   ) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips');
     try {
       Dio dio = Dio();
-      String urld = 'http://10.0.2.2:5000/api/trips';
+      String urld = 'http://192.168.0.19:5000/api/trips';
       Map<String, dynamic> params = {
         // 'driverName': _name,
         'phone': phone,
@@ -193,7 +193,7 @@ class TripManager extends ChangeNotifier {
 
   // ignore: non_constant_identifier_names
   Future<void> get_trips() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/mine');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/mine');
     try {
       var response = await http.get(
         url,
@@ -219,7 +219,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> get_cars() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/cars/cars');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/cars/cars');
     try {
       var response = await http.get(
         url,
@@ -245,7 +245,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> get_purposes() async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/purpose/all/all');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/purpose/all/all');
     try {
       var response = await http.get(
         url,
@@ -273,7 +273,7 @@ class TripManager extends ChangeNotifier {
   Future<void> get_all_trips({bool mine = false}) async {
     var url = mine
         ? Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/trips/p/mine',
             {
               "page": '0',
@@ -281,7 +281,7 @@ class TripManager extends ChangeNotifier {
             },
           )
         : Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/trips/p/all',
             {
               "page": '0',
@@ -334,7 +334,7 @@ class TripManager extends ChangeNotifier {
     // print(_trips!.length.toString());
     var url = mine
         ? Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/trips/p/mine',
             {
               "page": _pageNumber.toString(),
@@ -342,7 +342,7 @@ class TripManager extends ChangeNotifier {
             },
           )
         : Uri.http(
-            '10.0.2.2:5000',
+            '192.168.0.19:5000',
             '/api/trips/p/all',
             {
               "page": _pageNumber.toString(),
@@ -380,7 +380,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> get_single_trips(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/$id');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/$id');
     try {
       var response = await http.get(
         url,
@@ -401,7 +401,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> close_single_trips(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/$id/close');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/$id/close');
     try {
       var response = await http.put(
         url,
@@ -422,7 +422,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> danger_single_trips(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/$id/danger');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/$id/danger');
     try {
       var response = await http.put(
         url,
@@ -440,7 +440,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> approve_single_trips(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/$id/approve');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/$id/approve');
     try {
       var response = await http.put(
         url,
@@ -461,7 +461,7 @@ class TripManager extends ChangeNotifier {
   }
 
   Future<void> delete_single_trip(int id) async {
-    var url = Uri.http('10.0.2.2:5000', '/api/trips/$id/delete');
+    var url = Uri.http('192.168.0.19:5000', '/api/trips/$id/delete');
     final existingIndex = _trips!.indexWhere((trip) => trip.id == id);
     var existingtrip = _trips![existingIndex];
 
